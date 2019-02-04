@@ -12,7 +12,7 @@ class Menu extends CI_Model implements JsonSerializable{
     public $iOrden;
     public $iSensibilidad;
     public $iDinamico;
-    public $hijos=null;
+    private $hijos=null;
     public $iEstado;
     private $permisos=null;
 
@@ -39,9 +39,12 @@ class Menu extends CI_Model implements JsonSerializable{
       return $this->db->affected_rows();
     }
 
-    public function update($idmenu){
-      $this->db->where('idmenu',$idmenu);
-      $this->db->update('SIS_menu',$this);
+    public function update($array){
+      foreach ($array as $campo) {
+        $this->db->set($campo,$this->$campo);
+      }
+      $this->db->where('idmenu',$this->idmenu);
+      $this->db->update('SIS_menu');
       return $this->db->affected_rows();
     }
 
@@ -104,5 +107,7 @@ class Menu extends CI_Model implements JsonSerializable{
         return false;
       }
     }
+
+
 
 }

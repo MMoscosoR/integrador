@@ -27,17 +27,90 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalMenu" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" class="form-horizontal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Código:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="idmenu" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Nombre:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="vNombre">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Icono:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="vIcono">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Titulo:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="vTitulo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Descripcion:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="vDescripcion">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Ruta:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control input-sm" name="vRuta">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Sensibilidad:</label>
+            <div class="col-md-9">
+              <select class="form-control" name="iSensibilidad">
+                <option value="0">No</option>
+                <option value="1">Si</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary"></button>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+
 <script type="text/javascript">
   var datajstree = $.ajax({
     url: servidor + "sis/RelacionModulos/datajstree",
     dataType: "json",
+    type: "post",
+    data: {
+      idusuario: sessionStorage.idusuario
+    },
     async: false,
     beforeSend: function() {
       $('#menujstree').html('Cargando menu');
     },
-    success: function(data) {}
+    success: function(data) {
+      sessionStorage.accesos = JSON.stringify(data.accesos);
+    }
   });
-  $('#menujstree').html(listaJstree(datajstree.responseJSON));
+
+  $('#menujstree').html(listaJstree(datajstree.responseJSON.menus));
 
   var jstreeMenu = $('#menujstree').jstree({
     "core": {
@@ -48,27 +121,25 @@
 
 
   $(document.body).off('click', '#main-btn-guardar');
-  $(document.body).on('click', '#main-btn-guardar', function(event) {
+  $(document.body).on('click', '#main-btn-guardar', function(e) {
+    e.preventDefault();
     alertify.confirm('Confirmar guardado', 'Solo cambiar el orden de los menus en el mismo nivel, de lo contrario puede generar errores', function() {
-      console.log($('#menujstree').jstree().get_json('#', {
-        flat: true
-      }));
       let menuOrdenado = $('#menujstree').jstree().get_json('#', {
         flat: true
       });
-
       $.ajax({
-        url: servidor + "",
+        url: servidor + "sis/RelacionModulos/ordenarMenu",
         data: {
           norden: menuOrdenado
         },
         type: "post",
         dataType: "json",
-        beforeSend: function() {
+        success: function(data) {
+          alertify.success('Guardado');
 
         },
-        success: function(data) {
-          console.log(data);
+        error: function(xhr, ajaxOptions, thrownError) {
+          console.log(xhr);
         }
       });
 
@@ -76,5 +147,34 @@
 
     });
 
+  });
+  $(document.body).off('click', '#main-btn-nuevo');
+  $(document.body).on('click', '#main-btn-nuevo', function(ev) {
+    let modal = $('#modalMenu');
+    let padre = $('a.jstree-clicked').eq(0).parent().attr('data-id');
+    if (padre != undefined) {
+      modal.find('h4.modal-title').html('<b>Nuevo Modulo</b>');
+      modal.find('button[type="submit"]').html('Guardar');
+      modal.modal('show');
+    } else {
+      alertify.error('Seleccionar una carpeta');
+    }
+
+
+  });
+
+  $('#modalMenu form').validate({
+    rules: {
+      idmenu
+    },
+    submitHandler: function(form, e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+
+    },
+    invalidHandler: function(event, validator) {
+      //event.preventDefault();
+      //alertify.error('Por favor!,Verifique los datos ingresados');
+    }
   });
 </script>

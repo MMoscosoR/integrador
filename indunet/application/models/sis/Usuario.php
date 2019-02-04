@@ -109,7 +109,7 @@ class Usuario extends CI_Model implements JsonSerializable{
       }
 
       $this->accesos=$accesos;
-      return $accesos;
+      return $this->accesos;
     }
 
 
