@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark">
+          <i class="icon-settings font-dark"></i>
+          <span class="caption-subject bold uppercase"></span> </div>
+
+        <!--
+<div class="tools">
+          <div class="actions">
+            <button type="button" class="btn red btn-outline" id="btn_autorizaciones">Test autorizacion</button>
+          </div>
+        </div>-->
+      </div>
+      <div class="portlet-body">
+        <div class="portlet-body">
+          <div id="menujstree">
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var datajstree = $.ajax({
+    url: servidor + "sis/RelacionModulos/datajstree",
+    dataType: "json",
+    async: false,
+    beforeSend: function() {
+      $('#menujstree').html('Cargando menu');
+    },
+    success: function(data) {}
+  });
+  $('#menujstree').html(listaJstree(datajstree.responseJSON));
+
+  var jstreeMenu = $('#menujstree').jstree({
+    "core": {
+      "check_callback": true, // enable all modifications
+    },
+    plugins: ["dnd"]
+  });
+
+
+  $(document.body).off('click', '#main-btn-guardar');
+  $(document.body).on('click', '#main-btn-guardar', function(event) {
+    alertify.confirm('Confirmar guardado', 'Solo cambiar el orden de los menus en el mismo nivel, de lo contrario puede generar errores', function() {
+      console.log($('#menujstree').jstree().get_json('#', {
+        flat: true
+      }));
+      let menuOrdenado = $('#menujstree').jstree().get_json('#', {
+        flat: true
+      });
+
+      $.ajax({
+        url: servidor + "",
+        data: {
+          norden: menuOrdenado
+        },
+        type: "post",
+        dataType: "json",
+        beforeSend: function() {
+
+        },
+        success: function(data) {
+          console.log(data);
+        }
+      });
+
+    }, function() {
+
+    });
+
+  });
+</script>

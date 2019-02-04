@@ -1,0 +1,65 @@
+
+    <div class="container" style="background:white;">  
+            
+        <div id="calendarjm"></div>
+    </div>
+<script src="pages/modulos/prd/calendario/calendario.js"></script>
+
+
+<div class="modal fade" id="nueva_fecha" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <form  class="form-horizontal" id="form_fecha_nueva" method="post" action="#" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label">Insumo piloto:</label>
+                                    <div class="col-md-4">
+                                        <select name="idPiloto" id="lisInsumos" class="form-control input-sm">
+                                            <option value="">Insumo...</option>
+                                        </select>
+                                     </div>
+        
+                                    <label class="col-md-2 control-label">Equipo:</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" name="nrorequerimiento">
+                                    </div>                                 
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label">Fecha de inicio:</label>
+                                    <div class="col-md-4">
+                                        <input type="datetime-local" class="form-control input-sm" name="dFechainicio">
+                                     </div>
+        
+                                     <label class="col-md-2 control-label">Fecha de fin:</label>
+                                    <div class="col-md-4">
+                                           <input type="datetime-local" class="form-control input-sm" name="dFechafin"> 
+                                     </div>
+                            </div>
+                            <div class="form-group datos-generales">
+                                <label class="col-md-2 control-label">Ubicación:</label>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control input-sm" name="vUbicacion">
+                                </div> 
+                            </div>
+                            <div class="form-group datos-generales">
+                                <label class="col-md-2 control-label">Personas</label>
+                                <div class="col-md-10">
+                                    <select name="usersjm[]" id="userjmselect2" class="form-control input-sm"  multiple style="width: 100%">
+                                        
+                                    </select>
+                                    </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary kv-file-upload">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+

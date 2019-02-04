@@ -1,0 +1,103 @@
+<style>
+  .btn-principales a, a:hover{
+        color: rgb(146, 143, 143);
+    }
+</style>
+<div class="page-header navbar navbar-fixed-top">
+  <div class="page-header-inner ">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <a href="index.html">
+        <img src="assets/logo_main.png" alt="logo" class="logo-default" height="30px" style="margin: 15px 10px 0;" /> </a>
+      <div class="menu-toggler sidebar-toggler">
+        <span></span>
+      </div>
+    </div>
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+      <span></span>
+    </a>
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+    <div class="page-top">
+
+      <div class="top-menu" style="float:left">
+        <ul class="nav navbar-nav pull-left" id='divacciones'>
+        </ul>
+      </div>
+      <div class="top-menu" style="display: inline">
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown dropdown-user dropdown-dark">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+              <img alt="" class="img-circle" src="assets/layouts/layout4/img/avatar9.jpg"><span class="username username-hide-on-mobile">username</span><i class="fa fa-angle-down"></i> </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+              <li>
+                <a id="btn_bloquear_pantalla">
+                  <i class="icon-lock"></i> Bloquear Pantalla </a>
+              </li>
+              <li>
+                <a href="#" class="btn_cerrar_session">
+                  <i class="icon-key"></i> Cerrar Sesion </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"> </div>
+<div class="page-container">
+  <div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+      <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" id="menu_principal">
+      </ul>
+    </div>
+  </div>
+  <div class="page-content-wrapper">
+    <div class="page-content" id="cuerpo_principal">
+    </div>
+  </div>
+  <a href="javascript:;" class="page-quick-sidebar-toggler">
+    <i class="icon-login"></i>
+  </a>
+</div>
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <center> 2018 &copy; INDUNET V2.0
+      <a target="_blank" href="http://induquimica.com.pe">Induquimica</a> &nbsp;&nbsp;
+    </center>
+  </div>
+  <div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+  </div>
+</div>
+<script src="assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+<script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+<script src="assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+<div class="modal fade" id="modal-pantalla-bloqueo">
+  <div class="modal-dialog">
+    <form action="" id="desbloquear_pantalla">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h4 class="modal-title">Bloqueo de pantalla</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Por favor ingresar su contraseña:</label>
+            <input type="hidden" name='idusuario' value=''>
+            <input type="password" class="form-control" id="" name="txtpass" required="" aria-required="true">
+          </div>
+          <div class="alert alert-danger">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn_cerrar_session">Cerrar sesion</button>
+          <button type="submit" class="btn btn-primary">Desbloquear pantalla</button>
+
+
+        </div>
+    </form>
+  </div>
+</div>
+</div>

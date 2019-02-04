@@ -1,0 +1,104 @@
+<link href="assets/global/css/components.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/pages/css/login-5.min.css" rel="stylesheet" type="text/css" />
+<style>
+    body{
+        background-color: white;
+    }
+</style>
+<div class="user-login-5">
+        <div class="row bs-reset">
+            <div class="col-md-6 login-container bs-reset">
+                <img class="login-logo login-6" src="img/induquimica-logo.png">
+                <div class="login-content">
+                    <h1>Ingreso INDUNET</h1>
+                    <p>Sistema de gestión Administrativa</p>
+                    <form  class="login-form" action="core/Login/login" method="post" novalidate="novalidate">
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            <span>Enter any username and password. </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                    <input class="form-control placeholder-no-fix" type="text"  placeholder="Usuario" name="vUsuario" value="marco.moscoso" /> </div>
+                            <div class="col-xs-6">
+                                    <input class="form-control placeholder-no-fix" type="password"  placeholder="Contraseña" name="vPassword" value="marco$30" autocomplete="off" /> </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-8 text-right">
+                                <div class="forgot-password">
+                                    <a href="recovery-form" class="forget-password">Olvidaste tu contraseña?</a>
+                                </div>
+                                <button class="btn blue" type="submit">Ingresar</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- BEGIN FORGOT PASSWORD FORM -->
+                    <form class="recovery-form" action="Login/recuperar-clave" method="post">
+                        <h3>Recuperación de Contraseña ?</h3>
+                        <p> Se enviará su contraseña al correo indicado.</p>
+                        <div class="form-group">
+                                <input class="form-control placeholder-no-fix" type="email"  placeholder="Correo corporativo" name="correo"  /> </div>
+                        <div class="form-actions">
+                            <a href="login-form" class="btn blue btn-outline">Regresar</a>
+                            <button type="submit" class="btn blue uppercase pull-right">Enviar</button>
+                        </div>
+                    </form>
+                    <!-- END FORGOT PASSWORD FORM -->
+                </div>
+                <div class="login-footer">
+
+                </div>
+            </div>
+            <div class="col-md-6 bs-reset">
+                <div class="login-bg" style="position: relative; z-index: 0;">
+                     <div class="backstretch" >
+                        <img src="img/induquimica.jpg" class="deleteable" width="100%" >
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+            $(document).ready(function(e){
+                    $('.recovery-form').hide();
+
+                $('a[href="recovery-form"]').click(function(e){
+                    e.preventDefault();
+                    $('.recovery-form').show();
+                    $('.login-form').hide();
+                    $('input[name=correo]').val('');
+                });
+                $('a[href="login-form"]').click(function(e){
+                    e.preventDefault();
+                    $('.recovery-form').hide();
+                    $('.login-form').show();
+
+                });
+
+                $('.recovery-form').submit(function(e){
+                    e.preventDefault();
+                    var url= $(this).attr('action');
+                    $.ajax({
+                        url:servidor+url,
+                        type:"post",
+                        data:$(this).serialize(),
+                        success:function(data){
+                            if(data=='1'){
+                                alertify.success('Correo enviado exitosamente');
+                                $('a[href="login-form"]').trigger('click');
+
+                            }else{
+                                alertify.error('Correo invalido');
+                            }
+                        }
+                    });
+                });
+            });
+
+
+        </script>

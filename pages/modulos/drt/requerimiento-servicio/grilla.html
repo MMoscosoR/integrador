@@ -1,0 +1,578 @@
+<style>
+    label.error{
+        color:red;
+        font-size: 8pt;
+    }
+    .table td, .table th {
+    font-size: 10px;
+    }
+    legend{
+        font-size: 12pt;
+    }
+</style>
+<!-- BEGIN PAGE HEAD-->
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>DRT
+            <small>Requerimientos de Servicios</small>
+        </h1>
+    </div>
+    <!-- END PAGE TITLE -->
+
+</div>
+<!-- END PAGE HEAD-->
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+    <div class="col-md-12">
+        
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Requerimientos de Servicios </span>
+                    </div>
+                    <div class="tools">
+                        <div class="actions">
+                                <button type="button" class="btn red btn-outline" id="btn_autorizaciones">Autorizados</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    
+                        <table class="table table-striped table-checkable table-bordered no-footer"
+                            id="tbl_requerimientoServicios">
+                            <thead>
+                                
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                   
+                </div>
+
+            </div>
+            
+            <link rel="import" href="pages/modulos/drt/requerimiento-servicio/modal-edicion.html">
+    </div>
+</div>
+
+<!-- modal -->
+
+
+<div class="modal fade" id="nuevo_req_servicio" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <form  class="form-horizontal" id="form_req_servicio" method="post" action="#" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                        <input type="hidden" name="idRegistro">
+                        <input type="hidden" name="user_logueado">  
+                        <input type="hidden" name="form_menu"> 
+                        <div class="form-group datos-generales">
+                                <label class="col-md-2 control-label">Area. Solicitante:</label>
+                                <div class="col-md-4">
+                                    <select name="areaSolicitante" class="form-control input-sm">
+                                        
+                                    </select>
+                                 </div>
+    
+                                 <label class="col-md-2 control-label">Empleado:</label>
+                                <div class="col-md-4">
+                                        <select name="empleado"  class="form-control input-sm">
+                                        
+                                        </select>
+                                 </div>                                 
+                        </div>
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Nro de Req. Serv:</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control input-sm" name="nrorequerimiento">
+                                 </div>
+    
+                                 <label class="col-md-2 control-label">Fecha:</label>
+                                <div class="col-md-4">
+                                       <input type="date" class="form-control input-sm" name="fecha"> 
+                                 </div>
+                        </div>
+                        <div class="form-group datos-generales">
+                                <label class="col-md-2 control-label">Cliente</label>
+                                <div class="col-md-4">
+                                    <select name="cliente" class="form-control input-sm" style="width: 100%">
+                                        
+                                    </select>
+                                 </div>
+    
+                                 <label class="col-md-2 control-label">Contacto:</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control input-sm" name="contacto">
+                                 </div>                                 
+                        </div>
+                        
+
+                        <div class="form-group datos-generales">
+                                <label class="col-md-2 control-label">Email</label>
+                                <div class="col-md-4">
+                                    <input type="text" name="email" class="form-control input-sm">
+                                </div>
+    
+                                 <label class="col-md-2 control-label">Teléfono:</label>
+                                <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" name="telefono">
+                                 </div>                                 
+                        </div>
+
+                        
+                        <legend>Servicio Solicitado</legend>
+
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Servicio:</label>
+                                <div class="col-md-4">
+                                    <select name="servicio" class="form-control input-sm" style="width: 100%"></select>
+                                 </div>    
+                                 <input type="hidden" name='nombreServicio'>
+                                <div id='subdetalle'>
+                                       
+                                </div>                                 
+                        </div>
+                        <legend>Datos generales del producto</legend>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Nombre del producto:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" name="nombreproducto">
+                             </div>
+
+                             <label class="col-md-2 control-label">Referente:</label>
+                            <div class="col-md-4">
+                                   <input type="text" class="form-control input-sm" name="referente"> 
+                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Principio Activo:</label>
+                            <div class="col-md-4" id='inputprincipioactivo'>
+                                <input type="text" class="form-control input-sm" name="principioactivo">
+                             </div>
+
+                             <label class="col-md-2 control-label">Codigo GI:</label>
+                            <div class="col-md-4">
+                                   <input type="text" class="form-control input-sm" name="codigogi" readonly> 
+                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Presentacion:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" name="presentacion">
+                             </div>
+
+                             <label class="col-md-2 control-label">Forma Farmaceutica:</label>
+                            <div class="col-md-4">
+                                   <select name="formafarmaceutica" class="form-control input-sm" style="width: 100%"></select> 
+                             </div>
+
+                        </div>
+                        <div class="form-group">
+                            
+
+                             <label class="col-md-2 col-md-offset-6 control-label">Tipo:</label>
+                            <div class="col-md-4">
+                                   <input type="text" class="form-control input-sm" name="tipo"> 
+                             </div>
+                        </div>
+                        <legend>Material de empaque</legend>
+                        <div class="form-group">                            
+
+                            <label class="col-md-2 control-label">Material de empaque:</label>
+                           <div class="col-md-4">
+                                  <select name="materialempaque" class="form-control input-sm" style="width: 100%"></select>
+                            </div>
+                            <label class="col-md-2 control-label">Otros:</label>
+                           <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" name="empaqueotros"> 
+                            </div>
+                       </div>
+
+                       <div class="form-group">
+                           <div class="col-md-2 pull-right" style="margin-right: 25%">
+                                <div class="mt-checkbox-list">
+                                    <label class="mt-checkbox mt-checkbox-outline"> Caja duplex
+                                        <input type="checkbox" value="1" name="cajaduplex" checked>
+                                        <span></span>
+                                    </label>                                
+                                </div> 
+                           </div>
+                           <div class="col-md-10"> </div>                            
+                                                   
+                        </div>
+                        <legend></legend>
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Tamaño lote tentativo:</label>
+                                <div class="col-md-2">
+                                       <input type="text" class="form-control input-sm" name="lotetentativo">
+                                 </div>
+                                 <div class="col-md-2">
+                                     <select name="undmedida" class="form-control input-sm" style="width: 100%">
+                                        
+                                    </select>
+                                 </div>
+                                 <label class="col-md-2 control-label">Precio Tentativo:</label>
+                                 
+                                 <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="preciotentativo" placeholder="Precio Tentativo" value="0">
+                                 </div>
+                                 
+                                 
+                                 <div class="col-md-2">
+                                        <select name="preciomoneda" class="form-control">
+                                            <option value="ME">Dolares</option>
+                                            <option value="MN">Soles</option>                                            
+                                        </select>
+                                 </div>
+                                 
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label">Proyeccion de venta:</label>
+                            <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="proyeccion[1]" placeholder="Primer año" value="0">
+                            </div>
+                            <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="proyeccion[2]" placeholder="Segundo año" value="0">
+                            </div>
+                            <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="proyeccion[3]" placeholder="Tercer año" value="0">
+                            </div>
+                            <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="proyeccion[4]" placeholder="Cuarto año" value="0">
+                            </div>
+                            <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" name="proyeccion[5]" placeholder="Quinto año" value="0">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Inversion Comercial(US$):</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" name="inversionInicial" value="0">
+                            </div>
+                        </div>
+                        <legend></legend>
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Comentario GDV:</label>
+                                <div class="col-md-10">
+                                    <textarea name="comentariogdv" rows="3" class="form-control"></textarea>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="col-md-2 control-label">Comentario DRT:</label>
+                                <div class="col-md-10">
+                                    <textarea name="comentariodrt" rows="3" class="form-control"></textarea>
+                                </div>
+                        </div>
+                        
+                        <legend>Adjuntar archivos</legend>
+                        <div class="form-group">
+                            
+                            <div class="col-md-12">
+                                    <div class="file-loading">
+                                            <input id="input-701" name="archivos[]" type="file" accept=".pdf" multiple />
+                                        </div>
+                            </div>
+                                
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary kv-file-upload">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editar_req_servicio" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg " role="document">
+        <form  class="form-horizontal" id="form_edicion_req_servicio" method="post" action="#" enctype="multipart/form-data">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="idRegistro">
+                    <input type="hidden" name="user_logueado">  
+                    <input type="hidden" name="form_menu"> 
+                    <div class="form-group datos-generales">
+                            <label class="col-md-2 control-label">Area. Solicitante:</label>
+                            <div class="col-md-4">
+                                <input type="text" data="VnombreArea" class="form-control">
+                             </div>
+
+                             <label class="col-md-2 control-label">Empleado:</label>
+                            <div class="col-md-4">
+                                    <input type="text" data="VNombreUsuario" class="form-control">                                    
+                                    </select>
+                             </div>                                 
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Nro de Req. Serv:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" data="vCorrelativo">
+                             </div>
+
+                             <label class="col-md-2 control-label">Fecha:</label>
+                            <div class="col-md-4">
+                                   <input type="date" class="form-control input-sm" data="Fecha"> 
+                             </div>
+                    </div>
+                    <div class="form-group datos-generales">
+                            <label class="col-md-2 control-label">Cliente</label>
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control input-sm" data="cliente">
+                             </div>
+
+                             <label class="col-md-2 control-label">Contacto:</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" data="vContacto">
+                             </div>                                 
+                    </div>
+                    
+
+                    <div class="form-group datos-generales">
+                            <label class="col-md-2 control-label">Email</label>
+                            <div class="col-md-4">
+                                <input type="text" data="vEmail" class="form-control input-sm">
+                            </div>
+
+                             <label class="col-md-2 control-label">Teléfono:</label>
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control input-sm" data="vTelefono" pattern="[0-9]{0-15}">
+                             </div>                                 
+                    </div>
+
+                    
+                    <legend>Servicio Solicitado</legend>
+
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Servicio:</label>
+                            <div class="col-md-4">
+                                    <input type="text" class="form-control" data='vNombreServicio'>
+                             </div>
+                             <div id='subdetalle_edicion'>
+                                       
+                                </div>     
+                             
+                                                           
+                    </div>
+                    <legend>Datos generales del producto</legend>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Nombre del producto:</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm editable" data="vNombreProducto" name='nombreproducto'>
+                         </div>
+
+                         <label class="col-md-2 control-label">Referente:</label>
+                        <div class="col-md-4">
+                               <input type="text" class="form-control input-sm editable" data="vReferente" name='referente'> 
+                         </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                        <label class="col-md-2 control-label">Principio Activo:</label>
+                        <div class="col-md-4" id='inputprincipioactivoedicion'>
+                            <input type="text" class="form-control input-sm editable" data="vNombreGranel">
+                         </div>
+                         
+                        </div>
+                         <label class="col-md-2 control-label">Codigo GI:</label>
+                        <div class="col-md-4">
+                               <input type="text" class="form-control input-sm" name="codigogi" data="vPrincipioActivo" readonly> 
+                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Presentacion:</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm editable" data="vPresentacion" name='presentacion'>
+                         </div>
+
+                         <label class="col-md-2 control-label">Forma Farmaceutica:</label>
+                        <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" data="FFarmac"> 
+                         </div>
+
+                    </div>
+                    <div class="form-group">
+                        
+
+                         <label class="col-md-2 col-md-offset-6 control-label">Tipo:</label>
+                        <div class="col-md-4">
+                               <input type="text" class="form-control input-sm editable" data="vTipo" name='tipo'> 
+                         </div>
+                    </div>
+                    <legend>Material de empaque</legend>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Material de empaque:</label>
+                       <div class="col-md-4">
+                            <input type="text" class="form-control input-sm" data="material"> 
+                        </div>
+                        <label class="col-md-2 control-label">Otros:</label>
+                       <div class="col-md-4">
+                            <input type="text" class="form-control input-sm" data="vOtrosMaterial"> 
+                        </div>
+                   </div>
+
+                   <div class="form-group">
+                       <div class="col-md-2 pull-right" style="margin-right: 25%">
+                            <div class="mt-checkbox-list">
+                                <label class="mt-checkbox mt-checkbox-outline"> Caja duplex
+                                    <input type="checkbox" value="1" name="cajaduplex" checked>
+                                    <span></span>
+                                </label>                                
+                            </div> 
+                       </div>
+                       <div class="col-md-10"> </div>                            
+                                               
+                    </div>
+                    <legend></legend>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Tamaño lote tentativo:</label>
+                            <div class="col-md-2">
+                                   <input type="text" class="form-control input-sm editable" data="iLoteTentativo" name='lotetentativo'>
+                             </div>
+                             <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm" data="vUndMedida">
+                             </div>
+                             
+                             <label class="col-md-2 control-label">Precio Tentativo:</label>
+                             
+                             <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" data="iPrecioTentativo" placeholder="" name='preciotentativo'>
+                             </div>                            
+                               
+                             <div class="col-md-2">
+                                <select name="preciomoneda" class="form-control" data="cMoneda">
+                                    <option value="ME">Dolares</option>
+                                    <option value="MN">Soles</option>
+                                    
+                                </select>
+                         </div>
+                             
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-2 control-label">Proyeccion de venta</label>
+                        <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" name="proyeccion[1]" placeholder="Primer año">
+                        </div>
+                        <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" name="proyeccion[2]" placeholder="Segundo año">
+                        </div>
+                        <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" name="proyeccion[3]" placeholder="Tercer año">
+                        </div>
+                        <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" name="proyeccion[4]" placeholder="Cuarto año">
+                        </div>
+                        <div class="col-md-2">
+                                    <input type="text" class="form-control input-sm editable" name="proyeccion[5]" placeholder="Quinto año">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Inversion Comercial(US$):</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm editable" name="inversionInicial" data="nPrecioComercial" >
+                            </div>
+                        </div>
+                    <legend></legend>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Comentario GDV:</label>
+                            <div class="col-md-10">
+                                <textarea data="tComentarioGDV" rows="3" class="form-control editable" name='comentariogdv'></textarea>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="col-md-2 control-label">Comentario DRT:</label>
+                            <div class="col-md-10">
+                                <textarea data="tComentarioDRT" rows="3" class="form-control editable" name='comentariodrt'></textarea>
+                            </div>
+                    </div>
+                    
+                    <legend>Archivos Adjuntos</legend>
+                    <div class="form-group adjuntos">
+                    </div>
+                    <legend>Aprobacion</legend>
+                    <div class="seccion-aprobacion">
+                     
+                        <div class="form-grup">
+                            <button class="btn btn-success btn-block btn-sm" id="btn_aprobacion_servicio" type="button">Aprobar Requerimiento</button>
+                        </div>
+                        <div class="form-group detalle_aprobacion">
+                            <div class="col-md-4" >
+                                Aprobado por: <b><span class='usuariofirmante'></span></b>
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <img src="http://192.168.8.240/assets/Firmas/296.jpg" height="60px" alt="" style="vertical-align: top">
+                            </div>
+                            <div class="col-md-6">
+                                Fecha: <b><span class="fecha_aprobacion"></span></b>
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="seccion-entrega-dosier">
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_aprobacion_servicio">
+        <div class="modal-dialog">
+            <form action="" method="post" id='form_detalle_aprobacion'>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Ventana de Aprobacion</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Comentario breve:</label>
+                            <textarea class="form-control" name="tComentario" id="" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar aprobacion</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+<div id="divmodaleliminar"></div>
+<div id="factibilidad"></div>
+<div id="modal-planeamiento"></div>
+<div id="agregar-insumo"></div>
+<div id="modal-agregar-proceso"></div>
+<div id="modal-autorizaciones"></div>
+    
+<script src="pages\modulos\drt\requerimiento-servicio\componentes.js"></script>
+<script src="pages\modulos\drt\requerimiento-servicio\requerimiento-servicio.js"></script>
+<script src="pages\modulos\drt\requerimiento-servicio\edicion.js"></script>
+<script src="pages\modulos\drt\requerimiento-servicio\factibilidad.js"></script>
+<script src="pages\modulos\drt\requerimiento-servicio\analisis.js"></script>
+<script src="pages\modulos\drt\requerimiento-servicio\produccion-piloto.js"></script>
+
