@@ -46,7 +46,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Nombre:</label>
             <div class="col-md-9">
-              <input type="text" class="form-control input-sm" name="vNombre">
+              <input type="text" class="form-control input-sm" name="vNombreMenu">
             </div>
           </div>
           <div class="form-group">
@@ -70,7 +70,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label">Ruta:</label>
             <div class="col-md-9">
-              <input type="text" class="form-control input-sm" name="vRuta">
+              <input type="text" class="form-control input-sm" name="vRutaIndex">
             </div>
           </div>
           <div class="form-group">
@@ -85,7 +85,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerra</button>
           <button type="submit" class="btn btn-primary"></button>
         </div>
     </form>
@@ -130,13 +130,14 @@
       $.ajax({
         url: servidor + "sis/RelacionModulos/ordenarMenu",
         data: {
-          norden: menuOrdenado
+          norden: menuOrdenado,
         },
         type: "post",
         dataType: "json",
         success: function(data) {
+          $('.modal-backdrop').remove();
           alertify.success('Guardado');
-
+          $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
         },
         error: function(xhr, ajaxOptions, thrownError) {
           console.log(xhr);
@@ -165,12 +166,48 @@
 
   $('#modalMenu form').validate({
     rules: {
-      idmenu
+      idmenu: {
+        number: true
+      },
+      vNombreMenu: {
+        required: true,
+        maxlength: 50
+      },
+      vIcono: {
+        maxlength: 20
+      },
+      vTitulo: {
+        maxlength: 50
+      },
+      vDescripcion: {
+        maxlength: 200
+      },
+      vRuta: {
+        maxlength: 200
+      }
+
     },
     submitHandler: function(form, e) {
       e.preventDefault();
-      var formData = new FormData(form);
+      let padre = $('a.jstree-clicked').eq(0).parent().attr('data-id');
+      console.log($('#modalMenu form'));
+      $.ajax({
+        url: servidor + 'sis/RelacionModulos/guardarModulo',
+        data: $('#modalMenu form').serialize() + '&idmenuPadre=' + padre,
+        type: "post",
+        dataType: "json",
+        success: function(data) {
+          if (data.status == 1) {
+            alertify.success('Creado exitosamente');
+            $('.modal-backdrop').remove();
+            $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
+          }
 
+        },
+        error: function(xhr) {
+
+        }
+      });
     },
     invalidHandler: function(event, validator) {
       //event.preventDefault();

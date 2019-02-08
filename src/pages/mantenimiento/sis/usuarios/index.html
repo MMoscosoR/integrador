@@ -1,0 +1,481 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark">
+          <i class="icon-settings font-dark"></i>
+          <span class="caption-subject bold uppercase"></span> </div>
+
+
+      </div>
+      <div class="portlet-body">
+        <div class="portlet-body">
+          <div class="table-table-responsive">
+            <div class="messages"></div>
+            <table class="table table-bordered" id="tbl_relacionUsuarios">
+              <thead>
+
+              </thead>
+              <tbody>
+
+              </tbody>
+
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="modalUsuario">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form class="form-horizontal" method="post" autocomplete="off">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id=""></h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-md-2 control-label">DNI:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Ingrese su Dni" name="vDni">
+            </div>
+
+            <label class="col-md-2 control-label">Clonar Permisos:</label>
+            <div class="col-md-4">
+              <select name="idusuarioClon" class="form-control">
+                <option value="">.:Seleccionar usuario</option>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-2 control-label">Ape. Pat.:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Ingrese su apellido" name="vApePaterno">
+            </div>
+
+            <label class="col-md-2 control-label">Ape Mat.:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Ingrese su apellido" name="vApeMaterno">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Nombres:</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control input-sm" placeholder="Nombres" name="vNombres">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Alias:</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control input-sm" placeholder="Alias" name="vAlias">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Usuario:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Usuario" name="vUsuario">
+            </div>
+
+            <label class="col-md-2 control-label">Contraseña:</label>
+            <div class="col-md-4">
+              <input type="password" class="form-control input-sm" placeholder="Contraseña" name="vPassword" autocomplete="new-password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Area:</label>
+            <div class="col-md-4">
+              <select name="idarea" id="selArea" class="form-control input-sm" style="width:100%">
+                <option value="">.:Seleccionar</option>
+              </select>
+            </div>
+
+            <label class="col-md-2 control-label">Cargo:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Cargo" name="vCargo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Telefono:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Telefonos" name="vTelefono">
+            </div>
+
+            <label class="col-md-2 control-label">Email:</label>
+            <div class="col-md-4">
+              <input type="text" class="form-control input-sm" placeholder="Email" name="vEmail">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-2 control-label">F.Inicio:</label>
+            <div class="col-md-4">
+              <input type="date" class="form-control input-sm" placeholder="F.Inicio" name="dInicio">
+            </div>
+
+            <label class="col-md-2 control-label">F.Cese:</label>
+            <div class="col-md-4">
+              <input type="date" class="form-control input-sm" placeholder="F.Cese" name="dCese">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Estado:</label>
+            <div class="col-md-4">
+              <select name="iEstado" class="form-control input-sm">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <table class="table table-striped table-bordered" id="tbl_permisos" style="width:100%">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modalSensible">
+
+</div>
+
+
+
+<script type="text/javascript">
+  var row_selected = null;
+  $.ajax({
+    url: servidor + "sis/RelacionUsuarios/",
+    data: {},
+    type: "post",
+    dataType: "json",
+    beforeSend: function() {
+
+    },
+    success: function(data) {
+      $('#tbl_relacionUsuarios').dataTable({
+        "ordering": true,
+        "columns": data.cabeceras,
+        "data": data.nuevadata,
+        'order': [
+          [0, "desc"]
+        ],
+        "columnDefs": [{
+          "targets": -1,
+          "searchable": false,
+          "render": function(data, type, row) {
+            if (data == 0) {
+              return '<label class="label label-sm label-default">Inactivo</label>';
+            }
+            if (data == 1) {
+              return '<label class="label label-sm label-primary">Activo</label>';
+            }
+          }
+        }]
+      });
+
+      $('#tbl_permisos thead').html(drawHeader(data.acciones));
+      $('#tbl_permisos tbody').html(drawBody(data.acciones, data.menus).substr(4));
+
+      $('.messages').html('');
+    }
+  });
+  $(document).ready(function(e) {
+    $.ajax({
+      url: servidor + "sis/RelacionUsuarios/getaAreas",
+      dataType: "json",
+      success: function(data) {
+        let predata = [];
+        $.each(data, function(i, item) {
+          let obj = new Object();
+          obj['id'] = item.idarea;
+          obj['text'] = item.vNombreArea;
+          predata.push(obj);
+        });
+        $('#selArea').select2({
+          dropdownParent: $('#modalUsuario'),
+          data: predata
+        });
+      }
+
+    });
+  });
+  $(document.body).off('click', 'input:checkbox');
+  $(document.body).on('click', 'input:checkbox', function(ev) {
+    var clases = $(this).attr('class').split(' ');
+    if (clases.length == 1) {
+      if (clases[0] == 'check') {
+        $(":checkbox").prop('checked', $(this).prop("checked"));
+      } else {
+        $("." + clases[0]).prop('checked', $(this).prop("checked"));
+      }
+
+    } else {
+
+    }
+  });
+  $(document.body).off('click', '#main-btn-nuevo');
+  $(document.body).on('click', '#main-btn-nuevo', function(ev) {
+    let modal = $('#modalUsuario');
+    modal.find('h4.modal-title').html('<b>Nuevo Usuario</b>');
+    modal.find('button[type="submit"]').html('Guardar').show();
+    $('input[name="vDni"]').rules('add', {
+      required: true,
+      rangelength: [8, 8],
+      digits: true,
+      remote: {
+        url: servidor + 'sis/RelacionUsuarios/validarDni',
+        type: "post"
+      }
+    });
+    $('input[name="vPassword"]').rules('add', {
+      required: true,
+      rangelength: [7, 20]
+    });
+    modal.modal('show');
+  });
+  $(document.body).off('change', 'input[name=vDni]');
+  $(document.body).on('change', 'input[name=vDni]', function(ev) {
+    $.ajax({
+      url: servidor + "sis/RelacionUsuarios/getUsuarioFromPlan",
+      data: {
+        dociden: $(this).val()
+      },
+      type: "post",
+      dataType: "json",
+      success: function(data) {
+        if (data != null) {
+          let nombres = (data.vNombres).split(' ');
+          for (x in data) {
+            $('input[name=' + x + ']').val(data[x].trim());
+          }
+          $('input[name=vAlias]').val(nombres[0] + ' ' + data.vApePaterno);
+          $('input[name=vEmail]').val((nombres[0] + '.' + data.vApePaterno + '@induquimica.com.pe').toLowerCase());
+          $('input[name=vUsuario]').val((nombres[0] + '.' + data.vApePaterno).toLowerCase());
+        } else {
+          alertify.warning('No se encontro trabajador');
+        }
+      }
+    });
+  });
+  $('#modalUsuario form').validate({
+    rules: {
+      vApePaterno: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      vApeMaterno: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      vNombres: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      vAlias: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      vUsuario: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      idarea: {
+        required: true
+      },
+      vCargo: {
+        required: true,
+        rangelength: [1, 50]
+      },
+      vTelefono: {
+        required: true,
+        rangelength: [5, 15],
+        digits: true
+      },
+      vEmail: {
+        required: true,
+        email: true,
+        rangelength: [5, 50]
+      },
+      dInicio: {
+        required: true,
+        rangelength: [5, 20]
+      },
+      dCese: {
+        required: true,
+        rangelength: [5, 20]
+      },
+      iEstado: {
+        required: true
+      }
+    },
+    submitHandler: function(form, e) {
+      e.preventDefault();
+
+      let accion = $('button[type="submit"]').html();
+      let formData = $('#modalUsuario form').serializeArray();
+      formData.push({
+        name: 'usuario',
+        value: sessionStorage.idusuario
+      }, {
+        name: 'accion',
+        value: accion
+      });
+      if (accion == 'Actualizar') {
+        let idusuario = row_selected.find('td').eq(0).html();
+        formData.push({
+          name: 'idusuario',
+          value: idusuario
+        });
+      }
+      $.ajax({
+        url: servidor + "sis/RelacionUsuarios/guardar",
+        data: formData,
+        type: "post",
+        dataType: "json",
+        success: function(data) {
+          alertify.success('Guardado');
+          $('.modal-backdrop').remove();
+          $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
+
+        }
+      });
+    },
+    invalidHandler: function(event, validator) {}
+
+  });
+  $(document.body).off('click', '#tbl_relacionUsuarios tbody tr');
+  $(document.body).on('click', '#tbl_relacionUsuarios tbody tr', function(ev) {
+    row_selected = $(this);
+    $('#tbl_relacionUsuarios tbody tr').css('background-color', '').css('color', 'black');
+    row_selected.css('background-color', '#95A5A6').css('color', 'black');
+  });
+  $(document.body).off('dblclick', '#tbl_relacionUsuarios tbody tr');
+  $(document.body).on('dblclick', '#tbl_relacionUsuarios tbody tr', function(ev) {
+    let modal = $('#modalUsuario');
+    let idusuario = $(this).find('td').eq(0).html();
+    modal.find('h4.modal-title').html('<b>Detalles del usuario</b>');
+    modal.find('button[type="submit"]').hide();
+    $.ajax({
+      url: servidor + "sis/RelacionUsuarios/getDatosUsuario",
+      data: {
+        idusuario: idusuario
+      },
+      type: "post",
+      dataType: "json",
+      success: function(data) {
+        for (x in data.usuario) {
+          $('#modalUsuario input[name=' + x + ']').val(data.usuario[x]).prop('readonly', 'true');
+          $('#modalUsuario select[name=' + x + ']').val(data.usuario[x]).trigger('change').prop("disabled", true);
+        }
+
+        $.each(data.accesos, function(i, item) {
+          $.each(item.accesos, function(j, accion) {
+            $('input[type=checkbox].m' + accion.idmenu + '.a0').prop('checked', 'true');
+            $('input[type=checkbox].m' + accion.idmenu + '.a' + accion.idaccion).prop('checked', 'true');
+
+          });
+        });
+        $('#tbl_permisos input[type=checkbox]').prop("disabled", true);
+      }
+    });
+
+
+    modal.modal('show');
+
+  });
+  $(document.body).on('hidden.bs.modal', '#modalUsuario', function(ev) {
+    $('#modalUsuario input[type=text]').prop('readonly', false).val('');
+    $('#modalUsuario input[type=date]').prop('readonly', false).val('');
+    $('#modalUsuario select').prop('disabled', false).val('').trigger('change');
+    $('#tbl_permisos input[type=checkbox]').prop("disabled", false).prop('checked', false);
+    $('.error').html('');
+    $('input[name="vDni"]').rules("remove");
+    $('input[name="vPassword"]').rules("remove");
+    $('#modalUsuario form button[type="submit"]').prop('disabled', false);
+  });
+  $(document.body).off('click', '#main-btn-eliminar');
+  $(document.body).on('click', '#main-btn-eliminar', function(ev) {
+    if (row_selected != null) {
+      let codigo = row_selected.find('td').eq(0).html();
+      cargarModalEliminar({
+        url: 'sis/RelacionUsuarios/EliminarUsuario',
+        idregistro: codigo,
+        iSensibilidad: sessionStorage.menuSensibilidad
+      });
+    } else {
+      alertify.error('Seleccione un registro primero');
+    }
+  });
+  $(document.body).off('click', '#main-btn-editar');
+  $(document.body).on('click', '#main-btn-editar', function(ev) {
+    let modal = $('#modalUsuario');
+    modal.find('h4.modal-title').html('<b>Editar Usuario</b>');
+    modal.find('button[type="submit"]').html('Actualizar').show();
+    if (row_selected != null) {
+      $('input[name="vDni"]').rules('add', {
+        required: true,
+        rangelength: [8, 8],
+        digits: true
+      });
+      $('input[name="vPassword"]').rules('add', {
+        rangelength: [7, 20]
+      });
+      let idusuario = row_selected.find('td').eq(0).html();
+      $.ajax({
+        url: servidor + "sis/RelacionUsuarios/getDatosUsuario",
+        data: {
+          idusuario: idusuario
+        },
+        type: "post",
+        dataType: "json",
+        success: function(data) {
+          for (x in data.usuario) {
+            $('#modalUsuario input[name=' + x + ']').val(data.usuario[x]);
+            $('#modalUsuario select[name=' + x + ']').val(data.usuario[x]).trigger('change');
+          }
+
+          $.each(data.accesos, function(i, item) {
+
+            $.each(item.accesos, function(j, accion) {
+              $('input[type=checkbox].m' + accion.idmenu + '.a0').prop('checked', 'true')
+              $('input[type=checkbox].m' + accion.idmenu + '.a' + accion.idaccion).prop('checked', 'true');
+
+            });
+          });
+
+        },
+        complete: function() {
+          $('#modalUsuario form button[type="submit"]').prop('disabled', true);
+          $('#modalUsuario form input[name=vDni]').prop('readonly', true);
+        }
+      });
+      modal.modal('show');
+    } else {
+      alertify.error('Seleccione un registro primero')
+    }
+  });
+  $(document.body).off('change', '#modalUsuario form input,#modalUsuario form select');
+  $(document.body).on('change', '#modalUsuario form input,#modalUsuario form select', function(ev) {
+    $('#modalUsuario form button[type="submit"]').prop('disabled', false);
+  })
+</script>

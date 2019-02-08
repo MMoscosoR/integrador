@@ -8,12 +8,12 @@ class Menu extends CI_Model implements JsonSerializable{
     public $vIcono;
     public $vTitulo;
     public $vDescripcion;
-    public $vRutaIndex;
-    public $iOrden;
-    public $iSensibilidad;
-    public $iDinamico;
+    public $vRutaIndex=NULL;
+    public $iOrden=10000;
+    public $iSensibilidad=0;
+    public $iDinamico=0;
     private $hijos=null;
-    public $iEstado;
+    public $iEstado=1;
     private $permisos=null;
 
     public function __construct($menu=null){
@@ -50,13 +50,34 @@ class Menu extends CI_Model implements JsonSerializable{
 
     public function getHijos(){
       $this->db->select('*')->from('SIS_menu')->where('idmenuPadre',$this->idmenu)
-                ->where('iEstado',0)->order_by('iOrden');
+                ->where('iEstado',1)->order_by('iOrden');
       $query=$this->db->get();
       $hijos=array();
       if($query->row()){
         foreach ($query->result_array() as $key) {
             $menuHijo= new Menu($key);
             $menuHijo->getHijos();
+            array_push($hijos,$menuHijo);
+
+        }
+        $this->hijos=$hijos;
+      }
+        return $hijos;
+
+    }
+    public function getHijosAccesos($idusuario){
+      $this->db->select('*')->from('SIS_menu m')
+                ->join('SIS_accesos a','m.idmenu=a.idmenu')
+                ->where('idmenuPadre',$this->idmenu)
+                ->where('idusuario',$idusuario)
+                ->where('iEstado',1)->order_by('iOrden');
+      $query=$this->db->get();
+      $hijos=array();
+      if($query->row()){
+        foreach ($query->result_array() as $key) {
+            $menuHijo= new Menu($key);
+            $menuHijo->getHijosAccesos($idusuario);
+            $menuHijo->getPermisos($idusuario);
             array_push($hijos,$menuHijo);
 
         }
@@ -88,14 +109,18 @@ class Menu extends CI_Model implements JsonSerializable{
       }
     }
 
-    public function getPermisos(){
+    public function getPermisos($idusuario=null){
       $this->db->select('a.idaccion,vDescripcion,vIcono,VidHTML,a.iEstado')->from('SIS_acciones a')
                 ->join('SIS_permisos p','a.idaccion=p.idaccion')
                 ->join('SIS_accesos ac','p.idacceso=ac.idacceso')
                 ->where('idmenu',$this->idmenu)
-                ->where('a.iEstado',0);
+                ->where('a.iEstado',1);
+                if(!is_null($idusuario)){
+                  $this->db->where('idusuario',$idusuario);
+                }
       $query=$this->db->get();
-      $this->permisos=$query->result();
+
+      $this->permisos=$query->result_array();
     }
 
     public function validarAcceso($filtros=null){
@@ -106,6 +131,24 @@ class Menu extends CI_Model implements JsonSerializable{
       }else{
         return false;
       }
+    }
+    public function getidMenuPadre($idmenu){
+      $this->db->select('idmenuPadre')->from('SIS_menu')->where('idmenu',$idmenu);
+      $query=$this->db->get();
+      if($query->row()){
+        return $query->row()->idmenuPadre;
+      }else{
+        return null;
+      }
+
+    }
+    public function guardarAcceso($idusuario,$idmenu){
+      $this->db->insert('SIS_accesos', array('idusuario'=>$idusuario,'idmenu'=>$idmenu));
+      return $this->db->insert_id();
+    }
+    public function guardarPermiso($idacceso,$idaccion){
+      $this->db->insert('SIS_permisos', array('idacceso'=>$idacceso,'idaccion'=>$idaccion));
+      $this->db->last_query();
     }
 
 

@@ -42,5 +42,10 @@ class RelacionModulos extends CI_Controller{
 
 
   }
+  public function guardarModulo(){
+    $menu= new Menu($this->input->post());
+    $response['status']=$menu->save();
+    echo json_encode($response);
+  }
 
 }

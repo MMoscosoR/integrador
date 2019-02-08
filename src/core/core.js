@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  //validar session
+
   if (sessionStorage.idusuario > 0) {
     cargarHome(JSON.parse(sessionStorage.accesos));
   } else {
@@ -14,8 +14,7 @@ $(document).ready(function () {
         //alert(datos);
         $.post(url, datos, function (data) {
           data = JSON.parse(data);
-          if (data.validate) {
-            console.log(data.usuario);
+          if (data.validate) {            
             //guardar datos en sessionStorage
             for (var x in data.usuario) {
               if (x == 'accesos') {
@@ -75,6 +74,7 @@ $(document.body).on('click', '.menu-principal', function (e) {
     },
     success: function (data) {
       if (data.status) {
+        sessionStorage.menuSensibilidad=data.menu.iSensibilidad;
         //dibujar acciones (nuevo editar eliminar etc)
         $('#divacciones').html('');
         $.each(data.menu.permisos, function (i, item) {

@@ -6,7 +6,7 @@ class Area extends CI_Model implements JsonSerializable{
     public $cCodArea;
     public $vNombreArea;
     public $idempresa;
-    public $iEstado;
+    public $iEstado=1;
 
   public function __construct($area=null){
     //publics

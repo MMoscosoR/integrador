@@ -14,7 +14,7 @@ class Contenido extends CI_Controller{
     if($this->Menu->validarAcceso($this->input->post())){
 
         $menu= $this->Menu->findBy(array('idmenu' =>$this->input->post('idmenu')),'row');
-        $menu->getPermisos();
+        $menu->getPermisos($this->input->post('idusuario'));
         $response['menu']=$menu;
         $response['status']=true;
     }else{

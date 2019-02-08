@@ -1,0 +1,48 @@
+<div class="modal fade" id="modalEliminar">
+  <div class="modal-dialog">
+    <form class="formConfirmacionEliminar" action="">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="">Ventana de Confirmación</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-pass">
+            <label for="">Ingrese su Contraseña:</label>
+            <input type="password" name="vPassword" class="form-control" autocomplete="new-password" required>
+          </div>
+          <input type="hidden" name="idregistro" value="">
+          <div class="form-group">
+            <label for="">Comentario breve:</label>
+            <textarea class="form-control" name="tComentario" rows="3" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+  $('.formConfirmacionEliminar').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: servidor + $(this).attr('action'),
+      type: "post",
+      data: $(this).serialize() + '&idusuario=' + sessionStorage.idusuario,
+      dataType: "json",
+      success: function(data) {
+        if (data.status == 1) {
+          $('#modalEliminar').modal('toggle');
+          $('.modal-backdrop').remove();
+          alertify.success(data.mensaje);
+          $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
+        } else {
+          alertify.error(data.mensaje);
+        }
+
+      },
+    })
+  });
+</script>
