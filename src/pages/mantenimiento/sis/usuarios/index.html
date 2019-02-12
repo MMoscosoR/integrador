@@ -1,3 +1,8 @@
+<style media="screen">
+  #tbl_relacionUsuarios td,#tbl_permisos td {
+    font-size: 11px;
+}
+</style>
 <div class="row">
   <div class="col-md-12">
 
@@ -13,7 +18,7 @@
         <div class="portlet-body">
           <div class="table-table-responsive">
             <div class="messages"></div>
-            <table class="table table-bordered" id="tbl_relacionUsuarios">
+            <table class="table table-bordered" id="tbl_relacionUsuarios" style="font-size:9pt">
               <thead>
 
               </thead>
@@ -155,8 +160,8 @@
   </div>
 </div>
 
-<div class="modalSensible">
 
+<div class="modalSensible">
 </div>
 
 
@@ -195,10 +200,13 @@
 
       $('#tbl_permisos thead').html(drawHeader(data.acciones));
       $('#tbl_permisos tbody').html(drawBody(data.acciones, data.menus).substr(4));
-
+      $('#tbl_permisos').dataTable({
+        paging: false
+      });
       $('.messages').html('');
     }
   });
+
   $(document).ready(function(e) {
     $.ajax({
       url: servidor + "sis/RelacionUsuarios/getaAreas",
@@ -277,7 +285,10 @@
       }
     });
   });
-  $('#modalUsuario form').validate({
+  $('#modalUsuario form').submit(function(e) {
+    e.preventDefault();
+    $('input[type=search].input-inline').val('').trigger('keyup');
+  }).validate({
     rules: {
       vApePaterno: {
         required: true,
@@ -339,6 +350,9 @@
       }, {
         name: 'accion',
         value: accion
+      }, {
+        name: 'idmenu',
+        value: sessionStorage.menuactual
       });
       if (accion == 'Actualizar') {
         let idusuario = row_selected.find('td').eq(0).html();
@@ -353,10 +367,13 @@
         type: "post",
         dataType: "json",
         success: function(data) {
-          alertify.success('Guardado');
-          $('.modal-backdrop').remove();
-          $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
-
+          if (data == 'true') {
+            alertify.success('Guardado');
+            $('.modal-backdrop').remove();
+            $('a.menu-principal[data-id="' + sessionStorage.menuactual + '"]').trigger('click');
+          } else {
+            alertify.error(data);
+          }
         }
       });
     },
@@ -477,5 +494,14 @@
   $(document.body).off('change', '#modalUsuario form input,#modalUsuario form select');
   $(document.body).on('change', '#modalUsuario form input,#modalUsuario form select', function(ev) {
     $('#modalUsuario form button[type="submit"]').prop('disabled', false);
-  })
+  });
+  $(document.body).off('click', '#main-btn-log');
+  $(document.body).on('click', '#main-btn-log', function(ev) {
+    if (row_selected != null) {
+      var modalLogs = $('#modalLogs');
+      modalLogs.modal('show');
+    } else {
+      alertify.error('Seleccione un registro');
+    }
+  });
 </script>

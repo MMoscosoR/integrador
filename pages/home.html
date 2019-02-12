@@ -1,209 +1,179 @@
-    <style>
-        .btn-principales a, a:hover{
+<style>
+  .btn-principales a, a:hover{
             color: rgb(146, 143, 143);
-             
+
         }
     </style>
 
-    <div class="page-header navbar navbar-fixed-top">
-        <!-- BEGIN HEADER INNER -->
-        <div class="page-header-inner ">
-            <!-- BEGIN LOGO -->
-            <div class="page-logo">
-                <a href="index.html">
-                    <img src="assets/logo_main.png" alt="logo" class="logo-default" height="30px" style="margin: 15px 10px 0;"/> </a>
-                    <div class="menu-toggler sidebar-toggler">
-                        <span></span>
-                    </div>
-            </div>
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span></span>
-                </a>
-            <!-- END LOGO -->
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-            <!-- END RESPONSIVE MENU TOGGLER -->
-            <!-- BEGIN PAGE ACTIONS -->
-            <!-- DOC: Remove "hide" class to enable the page header actions -->
-
-            <!-- END PAGE ACTIONS -->
-            <!-- BEGIN PAGE TOP -->
-            <div class="top-menu">
-                <!--
-                <ul class="nav navbar-nav pull-left">
-
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                                <a href="javascript:;" class="dropdown-toggle btn-principales" data-close-others="true" id="main_btn_guardar">
-                                    <i class="glyphicon glyphicon-floppy-disk"></i>
-                                    <span class="badge badge-info"> Guadar </span>
-                                </a>
-                            </li>
-
-                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                <a href="javascript:;" class="dropdown-toggle btn-principales" data-close-others="true" id="main_btn_nuevo">
-                                    <i class="icon-doc"></i>
-                                    <span class="badge badge-success"> Nuevo </span>
-                                </a>
-                            </li>
-                            <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                    <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_editar">
-                                        <i class="icon-pencil"></i>
-                                        <span class="badge badge-primary"> Editar </span>
-                                    </a>
-                                </li>
-                                <li class="separator hide"> </li>
-
-                                <li class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
-                                    <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_eliminar">
-                                        <i class="icon-trash"></i>
-                                        <span class="badge badge-danger"> Eliminar </span>
-                                    </a>
-                                </li>
-                </ul>
-                -->
-            </div>
-            <div class="page-top">
-
-                <!-- BEGIN TOP NAVIGATION MENU -->
-                <div class="top-menu" style="float:left">
-                    <ul class="nav navbar-nav pull-left">
-                        <li class="dropdown dropdown-extended dropdown-notification">
-                            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_nuevo" title="Nuevo">
-                                <i class="icon-doc"></i>Nuevo
-                                <span class="badge badge-default"></span>
-                            </a>
-
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification">
-                            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_editar" title="Editar">
-                                <i class="icon-pencil"></i>Editar
-                                <span class="badge badge-default"></span>
-                            </a>
-                        </li>
-                        <li class="dropdown dropdown-extended dropdown-notification">
-                            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_eliminar" title="Eliminar">
-                                <i class="icon-trash"></i>Eliminar
-                                <span class="badge badge-default"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="top-menu">
-
-                    <ul class="nav navbar-nav pull-right">
-
-                            <li class="dropdown dropdown-user dropdown-dark">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-
-                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                    <img alt="" class="img-circle" src="http://localhost/indunet-spa-m4/assets/layouts/layout4/img/avatar9.jpg"><span class="username username-hide-on-mobile">username</span> </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
-
-
-                                    <li>
-                                        <a  id="btn_bloquear_pantalla">
-                                            <i class="icon-lock"></i> Bloquear Pantalla </a>
-                                    </li>
-                                    <li>
-                                            <a href="#" class="btn_cerrar_session">
-                                                <i class="icon-key"></i> Cerrar sesion </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END USER LOGIN DROPDOWN -->
-
-                        </ul>
-                </div>
-                <!-- END TOP NAVIGATION MENU -->
-            </div>
-            <!-- END PAGE TOP -->
-        </div>
-        <!-- END HEADER INNER -->
+<div class="page-header navbar navbar-fixed-top">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner ">
+    <!-- BEGIN LOGO -->
+    <div class="page-logo">
+      <a href="index.html">
+        <img src="assets/logo_main.png" alt="logo" class="logo-default" height="30px" style="margin: 15px 10px 0;" /> </a>
+      <div class="menu-toggler sidebar-toggler">
+        <span></span>
+      </div>
     </div>
-    <!-- END HEADER -->
-    <!-- BEGIN HEADER & CONTENT DIVIDER -->
-    <div class="clearfix"> </div>
-    <!-- END HEADER & CONTENT DIVIDER -->
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-        <!-- BEGIN SIDEBAR -->
-        <div class="page-sidebar-wrapper">
-            <!-- BEGIN SIDEBAR -->
-            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+      <span></span>
+    </a>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN PAGE ACTIONS -->
+    <!-- DOC: Remove "hide" class to enable the page header actions -->
 
-                <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" id="menu_principal">
+    <!-- END PAGE ACTIONS -->
+    <!-- BEGIN PAGE TOP -->
+    <div class="top-menu">
 
-
-                </ul>
-                <!-- END SIDEBAR MENU -->
-            </div>
-            <!-- END SIDEBAR -->
-        </div>
-        <!-- END SIDEBAR -->
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <!-- BEGIN CONTENT BODY -->
-            <div class="page-content" id="cuerpo_principal">
-
-            </div>
-            <!-- END CONTENT BODY -->
-        </div>
-        <!-- END CONTENT -->
-        <!-- BEGIN QUICK SIDEBAR -->
-        <a href="javascript:;" class="page-quick-sidebar-toggler">
-            <i class="icon-login"></i>
-        </a>
-
-        <!-- END QUICK SIDEBAR -->
     </div>
+    <div class="page-top">
 
-    <!-- END CONTAINER -->
-    <!-- BEGIN FOOTER -->
-    <div class="page-footer">
-        <div class="page-footer-inner">
-            <center> 2018 &copy; INDUNET V2.0
-            <a target="_blank" href="http://induquimica.com.pe">Induquimica</a> &nbsp;&nbsp;
-            </center>
-        </div>
-        <div class="scroll-to-top">
-            <i class="icon-arrow-up"></i>
-        </div>
+      <!-- BEGIN TOP NAVIGATION MENU -->
+      <div class="top-menu" style="float:left">
+        <ul class="nav navbar-nav pull-left">
+          <li class="dropdown dropdown-extended dropdown-notification">
+            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_nuevo" title="Nuevo">
+              <i class="icon-doc"></i>Nuevo
+              <span class="badge badge-default"></span>
+            </a>
+
+          </li>
+          <li class="dropdown dropdown-extended dropdown-notification">
+            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_editar" title="Editar">
+              <i class="icon-pencil"></i>Editar
+              <span class="badge badge-default"></span>
+            </a>
+          </li>
+          <li class="dropdown dropdown-extended dropdown-notification">
+            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" id="main_btn_eliminar" title="Eliminar">
+              <i class="icon-trash"></i>Eliminar
+              <span class="badge badge-default"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="top-menu">
+
+        <ul class="nav navbar-nav pull-right">
+
+          <li class="dropdown dropdown-user dropdown-dark">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+              <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+              <img alt="" class="img-circle" src="http://localhost/indunet-spa-m4/assets/layouts/layout4/img/avatar9.jpg"><span class="username username-hide-on-mobile">username</span> </a>
+            <ul class="dropdown-menu dropdown-menu-default">
+
+
+              <li>
+                <a id="btn_bloquear_pantalla">
+                  <i class="icon-lock"></i> Bloquear Pantalla </a>
+              </li>
+              <li>
+                <a href="#" class="btn_cerrar_session">
+                  <i class="icon-key"></i> Cerrar sesion </a>
+              </li>
+            </ul>
+          </li>
+          <!-- END USER LOGIN DROPDOWN -->
+
+        </ul>
+      </div>
+      <!-- END TOP NAVIGATION MENU -->
     </div>
+    <!-- END PAGE TOP -->
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN HEADER & CONTENT DIVIDER -->
+<div class="clearfix"> </div>
+<!-- END HEADER & CONTENT DIVIDER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+      <!-- BEGIN SIDEBAR MENU -->
+
+      <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" id="menu_principal">
 
 
-    <script src="assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
-
-    <script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
-    <script src="assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
-
-    <div class="modal fade" id="modal-pantalla-bloqueo">
-        <div class="modal-dialog">
-            <form action="" id="desbloquear_pantalla">
-                <div class="modal-content">
-                    <div class="modal-header">
-
-                        <h4 class="modal-title">Bloqueo de pantalla</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="recipient-name" class="form-control-label">Por favor ingresar su contraseña:</label>
-                            <input type="hidden" name='idusuario' value=''>
-                            <input type="password" class="form-control" id="" name="txtpass" required="" aria-required="true">
-                        </div>
-                        <div class="alert alert-danger">
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn_cerrar_session">Cerrar sesion</button>
-                        <button type="submit" class="btn btn-primary">Desbloquear pantalla</button>
-
-
-                    </div>
-                </form>
-            </div>
-        </div>
+      </ul>
+      <!-- END SIDEBAR MENU -->
     </div>
+    <!-- END SIDEBAR -->
+  </div>
+  <!-- END SIDEBAR -->
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content" id="cuerpo_principal">
+
+    </div>
+    <!-- END CONTENT BODY -->
+  </div>
+  <!-- END CONTENT -->
+  <!-- BEGIN QUICK SIDEBAR -->
+  <a href="javascript:;" class="page-quick-sidebar-toggler">
+    <i class="icon-login"></i>
+  </a>
+
+  <!-- END QUICK SIDEBAR -->
+</div>
+
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+  <div class="page-footer-inner">
+    <center> 2018 &copy; INDUNET V2.0
+      <a target="_blank" href="http://induquimica.com.pe">Induquimica</a> &nbsp;&nbsp;
+    </center>
+  </div>
+  <div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+  </div>
+</div>
+
+
+
+<script src="assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+
+<script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+<script src="assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+
+<div class="modal fade" id="modal-pantalla-bloqueo">
+  <div class="modal-dialog">
+    <form action="" id="desbloquear_pantalla">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h4 class="modal-title">Bloqueo de pantalla</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Por favor ingresar su contraseña:</label>
+            <input type="hidden" name='idusuario' value=''>
+            <input type="password" class="form-control" id="" name="txtpass" required="" aria-required="true">
+          </div>
+          <div class="alert alert-danger">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn_cerrar_session">Cerrar sesion</button>
+          <button type="submit" class="btn btn-primary">Desbloquear pantalla</button>
+
+
+        </div>
+    </form>
+  </div>
+</div>
+</div>

@@ -58,7 +58,7 @@ function cargarHome(accesos){
     $('body').addClass('page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo');
     $('#menu_principal').html(menu(accesos));
     $('span.username.username-hide-on-mobile').html(sessionStorage.vAlias);
-
+    $('nav.quick-nav').hide();
   });
 }
 

@@ -110,7 +110,7 @@ class Menu extends CI_Model implements JsonSerializable{
     }
 
     public function getPermisos($idusuario=null){
-      $this->db->select('a.idaccion,vDescripcion,vIcono,VidHTML,a.iEstado')->from('SIS_acciones a')
+      $this->db->select('a.idaccion,vDescripcion,vIcono,VidHTML,a.iTipo,a.iEstado')->from('SIS_acciones a')
                 ->join('SIS_permisos p','a.idaccion=p.idaccion')
                 ->join('SIS_accesos ac','p.idacceso=ac.idacceso')
                 ->where('idmenu',$this->idmenu)

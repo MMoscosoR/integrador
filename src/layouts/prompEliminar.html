@@ -30,7 +30,7 @@
     $.ajax({
       url: servidor + $(this).attr('action'),
       type: "post",
-      data: $(this).serialize() + '&idusuario=' + sessionStorage.idusuario,
+      data: $(this).serialize() + '&idusuario=' + sessionStorage.idusuario + '&idmenu=' + sessionStorage.menuactual + '&usuario=' + sessionStorage.idusuario,
       dataType: "json",
       success: function(data) {
         if (data.status == 1) {

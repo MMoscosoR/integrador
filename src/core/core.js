@@ -14,7 +14,7 @@ $(document).ready(function () {
         //alert(datos);
         $.post(url, datos, function (data) {
           data = JSON.parse(data);
-          if (data.validate) {            
+          if (data.validate) {
             //guardar datos en sessionStorage
             for (var x in data.usuario) {
               if (x == 'accesos') {
@@ -77,7 +77,9 @@ $(document.body).on('click', '.menu-principal', function (e) {
         sessionStorage.menuSensibilidad=data.menu.iSensibilidad;
         //dibujar acciones (nuevo editar eliminar etc)
         $('#divacciones').html('');
+        $('#ulEspeciales').html('');
         $.each(data.menu.permisos, function (i, item) {
+          if(item.iTipo==1){
           $('#divacciones').append(`
             <li class="dropdown dropdown-extended dropdown-notification">
               <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
@@ -86,6 +88,16 @@ $(document.body).on('click', '.menu-principal', function (e) {
                 <span class="badge badge-default"></span>
               </a>
             </li> `);
+          }
+          if(item.iTipo==2){
+            $('nav.quick-nav').show();
+            $('#ulEspeciales').append(`<li>
+                    <a class="active" id="`+item.VidHTML+`">
+                        <span>`+item.vDescripcion+`</span>
+                        <i class="`+item.vIcono+`"></i>
+                    </a>
+                </li>`);
+          }
         });
 
         //dinamico o no

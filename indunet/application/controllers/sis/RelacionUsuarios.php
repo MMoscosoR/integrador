@@ -41,13 +41,17 @@ class RelacionUsuarios extends CI_Controller{
 
   function guardar(){
     $menus=array();
-    if($this->input->post('accion')=='Guardar'){
+    $mpermiso=$this->Menu->validarAcceso(array('idusuario' => $this->input->post('usuario'),
+                                      'idmenu'=>$this->input->post('idmenu')
+                                     ));
+    if($this->input->post('accion')=='Guardar' and $mpermiso){
+
       $usuario= new Usuario($this->input->post());
-          $idusuario=$usuario->save();
-          if($idusuario){
+          $idusuario =$usuario->save();
+          if( $idusuario){
             foreach ($this->input->post('accesos') as $key) {
                 $acceso=explode(',',$key);
-                if(!in_array($acceso[0],$menus) ){
+                if(!in_array($acceso[0],$menus) && $acceso[1]==0 ){
                   //guardar acceso modulo
                     $idacceso=$this->Menu->guardarAcceso($idusuario,$acceso[0]);
                     //guardar permisos
@@ -77,8 +81,7 @@ class RelacionUsuarios extends CI_Controller{
             $userlog->logUsuario($this->input->post('usuario'),'save');
             echo json_encode('true');
           }
-    }
-    if($this->input->post('accion')=='Actualizar'){
+    }else if($this->input->post('accion')=='Actualizar' and $mpermiso){
 
       $idusuario=$this->input->post('idusuario');
       //verificar si se cambio la contraseña
@@ -93,7 +96,7 @@ class RelacionUsuarios extends CI_Controller{
         $usuario->borrarAccesos();
         foreach ($this->input->post('accesos') as $key) {
             $acceso=explode(',',$key);
-            if(!in_array($acceso[0],$menus)){
+            if(!in_array($acceso[0],$menus) && $acceso[1]==0){
               //guardar acceso modulo
                 $idacceso=$this->Menu->guardarAcceso($idusuario,$acceso[0]);
                 //guardar permisos
@@ -122,34 +125,45 @@ class RelacionUsuarios extends CI_Controller{
         $userlog->logUsuario($this->input->post('usuario'),'update');
         echo json_encode('true');
       }
+    }else{
+      echo json_encode('Usted no tiene permiso');
     }
   }
   public function EliminarUsuario(){
-    if($this->input->post('vPassword')){
-        $usuario=$this->Usuario->findBy(array('vPassword' =>$this->input->post('vPassword'),
-                                              'idusuario'=>$this->input->post('idusuario')
-                                             ));
-        if($usuario){
-          $usuarioEliminar=$this->Usuario->findBy(array('idusuario' =>$this->input->post('idregistro')),'row');
-          $usuarioEliminar->getAccesos();
-          $usuarioEliminar->logUsuario($this->input->post('idusuario'),'delete',$this->input->post('tComentario'));
-          $usuarioEliminar->delete($this->input->post('idregistro'));
-          $response['status']=1;
-          $response['mensaje']='Registro eliminado';
-        }else{
-          $response['status']=0;
-          $response['mensaje']='Contraseña incorrecta';
-        }
-    }else{
-      $usuarioEliminar=$this->Usuario->findBy(array('idusuario' =>$this->input->post('idregistro')),'row');
-      $usuarioEliminar->getAccesos();
-      $usuarioEliminar->logUsuario($this->input->post('idusuario'),'delete',$this->input->post('tComentario'));
-      $usuarioEliminar->delete($this->input->post('idregistro'));
-      $response['status']=1;
-      $response['mensaje']='Eliminado';
+    $mpermiso=$this->Menu->validarAcceso(array('idusuario' => $this->input->post('usuario'),
+                                      'idmenu'=>$this->input->post('idmenu')
+                                     ));
+    if($mpermiso){
+      if($this->input->post('vPassword')){
+          $usuario=$this->Usuario->findBy(array('vPassword' =>$this->input->post('vPassword'),
+                                                'idusuario'=>$this->input->post('idusuario')
+                                               ));
+          if($usuario){
+            $usuarioEliminar=$this->Usuario->findBy(array('idusuario' =>$this->input->post('idregistro')),'row');
+            $usuarioEliminar->getAccesos();
+            $usuarioEliminar->logUsuario($this->input->post('idusuario'),'delete',$this->input->post('tComentario'));
+            $usuarioEliminar->delete($this->input->post('idregistro'));
+            $response['status']=1;
+            $response['mensaje']='Registro eliminado';
+          }else{
+            $response['status']=0;
+            $response['mensaje']='Contraseña incorrecta';
+          }
+      }else{
+        $usuarioEliminar=$this->Usuario->findBy(array('idusuario' =>$this->input->post('idregistro')),'row');
+        $usuarioEliminar->getAccesos();
+        $usuarioEliminar->logUsuario($this->input->post('idusuario'),'delete',$this->input->post('tComentario'));
+        $usuarioEliminar->delete($this->input->post('idregistro'));
+        $response['status']=1;
+        $response['mensaje']='Eliminado';
 
+      }
+      echo json_encode($response);
+    }else{
+      $response['status']=0;
+      $response['mensaje']='No tiene persmiso para eliminar';
+      echo json_encode($response);
     }
-    echo json_encode($response);
   }
 
   function getDatosUsuario(){
