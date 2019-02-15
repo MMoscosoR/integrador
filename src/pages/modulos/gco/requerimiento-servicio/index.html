@@ -1,7 +1,10 @@
 <style media="screen">
-  #tbl_relacionUsuarios td,
-  #tbl_permisos td {
+
+  #tbl_requerimientos td {
     font-size: 11px;
+  }
+  legend{
+    font-size: 16px;
   }
 </style>
 <div class="row">
@@ -19,7 +22,7 @@
         <div class="portlet-body">
           <div class="table-table-responsive">
             <div class="messages"></div>
-            <table class="table table-bordered" id="tbl_relacionUsuarios" style="font-size:9pt">
+            <table class="table table-bordered" id="tbl_requerimientos" style="font-size:9pt">
               <thead>
 
               </thead>
@@ -36,8 +39,559 @@
 
   </div>
 </div>
+<div class="modal fade" id="modalReqServicio">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="form-horizontal" id="form_req_servicio" method="post" action="#" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="datos-generales">
+            <div class="form-group datos-generales">
+              <label class="col-md-2 control-label">Area. Solicitante:</label>
+              <div class="col-md-4">
+                <select name="idareaSolicitante" class="form-control input-sm" style="width:100%">
+
+                </select>
+              </div>
+
+              <label class="col-md-2 control-label">Empleado:</label>
+              <div class="col-md-4">
+                <select name="idempleado" class="form-control input-sm" style="width:100%">
+
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Nro de Req. Serv:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vCorrelativo">
+              </div>
+
+              <label class="col-md-2 control-label">Fecha:</label>
+              <div class="col-md-4">
+                <input type="date" class="form-control input-sm" name="dSolicitud">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Cliente</label>
+              <div class="col-md-4">
+                <select name="idcliente" class="form-control input-sm" style="width: 100%">
+                  <option value=""></option>
+                </select>
+              </div>
+
+              <label class="col-md-2 control-label">Contacto:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vContacto">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Email</label>
+              <div class="col-md-4">
+                <input type="text" name="vEmail" class="form-control input-sm">
+              </div>
+
+              <label class="col-md-2 control-label">Teléfono:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vTelefono">
+              </div>
+            </div>
+
+          </div>
+          <legend>Servicio Solicitado</legend>
+          <div class="datos-servicio">
+            <div class="form-group">
+              <label class="col-md-2 control-label">Servicio:</label>
+              <div class="col-md-4">
+                <select name="idservicio" class="form-control input-sm" style="width: 100%">
+                  <option value=""></option>
+                </select>
+              </div>
+              <input type="hidden" name="vNombreServicio">
+              <div id='subdetalle'>
+              </div>
+            </div>
+          </div>
+          <legend>Datos generales del producto</legend>
+          <div class="datos-producto">
+            <div class="form-group">
+              <label class="col-md-2 control-label">Nombre del producto:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vNombreProducto">
+              </div>
+
+              <label class="col-md-2 control-label">Referente:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vReferente">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Principio Activo:</label>
+              <div class="col-md-4" id='inputprincipioactivo'>
+                <input type="text" class="form-control input-sm" name="vNombreGranel">
+              </div>
+
+              <label class="col-md-2 control-label">Codigo GI:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vCodGI" readonly>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-2 control-label">Presentacion:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vPresentacion">
+              </div>
+
+              <label class="col-md-2 control-label">Forma Farmaceutica:</label>
+              <div class="col-md-4">
+                <select name="idformaFarmaceutica" class="form-control input-sm" style="width: 100%">
+                  <option value=""></option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+
+
+              <label class="col-md-2 col-md-offset-6 control-label">Tipo:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vTipo">
+              </div>
+            </div>
+            <legend>Material de empaque</legend>
+            <div class="form-group">
+
+              <label class="col-md-2 control-label">Material de empaque:</label>
+              <div class="col-md-4">
+                <select name="idmaterialEmpaque" class="form-control input-sm" style="width: 100%">
+                  <option value=""></option>
+                </select>
+              </div>
+              <label class="col-md-2 control-label">Otros:</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="vOtrosMateriales">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-2 pull-right" style="margin-right: 25%">
+                <div class="mt-checkbox-list">
+                  <label class="mt-checkbox mt-checkbox-outline"> Caja duplex
+                    <input type="checkbox" value="1" name="iCajaDuplex" checked>
+                    <span></span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-10"> </div>
+
+            </div>
+          </div>
+
+          <div class="datos-finanzas">
+            <legend>Tentativos</legend>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Tamaño lote tentativo:</label>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm" name="iLoteTentativo">
+              </div>
+              <div class="col-md-2">
+                <select name="idunidadMedida" class="form-control input-sm" style="width: 100%">
+                  <option value=""></option>
+                </select>
+              </div>
+              <label class="col-md-2 control-label">Precio Tentativo:</label>
+
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm" name="iPrecioTentativo" placeholder="Precio Tentativo">
+              </div>
+
+
+              <div class="col-md-2">
+                <select name="cMoneda" class="form-control">
+                  <option value="ME">Dolares</option>
+                  <option value="MN">Soles</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label for="" class="col-md-2 control-label">Proyeccion de venta:</label>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm vproyeccion" name="vProVentaAnual[1]" placeholder="Primer año">
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm vproyeccion" name="vProVentaAnual[2]" placeholder="Segundo año">
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm vproyeccion" name="vProVentaAnual[3]" placeholder="Tercer año">
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm vproyeccion" name="vProVentaAnual[4]" placeholder="Cuarto año">
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control input-sm vproyeccion" name="vProVentaAnual[5]" placeholder="Quinto año">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label">Inversion Comercial(US$):</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control input-sm" name="nPrecioComercial">
+              </div>
+            </div>
+          </div>
+          <legend></legend>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Comentario GDV:</label>
+            <div class="col-md-10">
+              <textarea name="tComentarioGDV" rows="3" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Comentario DRT:</label>
+            <div class="col-md-10">
+              <textarea name="tComentatioDRT" rows="3" class="form-control"></textarea>
+            </div>
+          </div>
+
+          <legend>Adjuntar archivos</legend>
+          <div class="form-group">
+
+            <div class="col-md-12">
+              <div class="file-loading">
+                <input id="input-701" name="archivos[]" type="file" accept=".pdf" multiple />
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary kv-file-upload">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <div class="modalSensible">
 </div>
-<script type="text/javascript">
 
+
+<script type="text/javascript">
+  var row_selected = null;
+  $.ajax({
+    url: servidor + "gco/RelacionReqServicios/",
+    data: {},
+    type: "post",
+    dataType: "json",
+    beforeSend: function() {
+
+    },
+    success: function(data) {
+      $('#tbl_requerimientos').dataTable({
+        "ordering": true,
+        "columns": data.cabeceras,
+        "data": data.nuevadata,
+        'order': [
+          [0, "desc"]
+        ]
+      });
+
+      $("#input-701").fileinput({
+        //uploadUrl:'#',
+        maxFileCount: 5,
+        showUpload: false, // hide upload button
+        showRemove: true,
+        browseOnZoneClick: true,
+        //preferIconicPreview: true
+      });
+      //select clientes
+      $("#form_req_servicio select[name=idcliente]").select2({
+        data: data.clientes,
+        placeholder: 'Seleccionar un cliente'
+      })
+      //select servicios
+      $("#form_req_servicio select[name=idservicio]").select2({
+        data: data.servicios,
+        placeholder: 'Seleccionar un Servicio'
+      });
+      $('#form_req_servicio select[name=idformaFarmaceutica]').select2({
+        data: data.formaFarmaceutica,
+        placeholder: 'Seleccionar'
+      });
+      $('#form_req_servicio select[name=idmaterialEmpaque]').select2({
+        data: data.materialesEmpaque,
+        placeholder: 'Seleccionar'
+      });
+      $('#form_req_servicio select[name=idunidadMedida]').select2({
+        data: data.undmedida,
+        placeholder: 'Seleccionar'
+      });
+      $('#form_req_servicio select[name=idareaSolicitante]').select2({
+        data: data.areas,
+        placeholder: 'Seleccionar'
+      });
+      $('#form_req_servicio select[name=idempleado]').select2({
+        data: data.usuarios,
+        placeholder: 'Seleccionar'
+      });
+      $('#form_req_servicio select[name=idempleado]').val(sessionStorage.idusuario).trigger('change');
+      $('#form_req_servicio select[name=idareaSolicitante]').val(sessionStorage.idarea).trigger('change');
+
+    }
+  });
+  $(document.body).off('click', '#main-btn-nuevo');
+  $(document.body).on('click', '#main-btn-nuevo', function(ev) {
+    var modal = $('#modalReqServicio');
+    modal.modal('show');
+    modal.find('h4.modal-title').html('<b>Nuevo Requerimiento de Servicio</b>');
+    modal.find('button[type="submit"]').html('Guardar').show();
+
+    //get correlativo
+    $.ajax({
+      url: servidor + 'gco/RelacionReqServicios/onClickNuevo',
+      data: {
+        idmenu: sessionStorage.menuactual
+      },
+      type: "post",
+      dataType: "json",
+      success: function(data) {
+        $('#form_req_servicio input[name=vCorrelativo]').val(data.correlativo).prop('readonly', true);
+        $('#form_req_servicio select[name=idempleado] option:not(:selected)').prop("disabled", "disabled");
+        $('#form_req_servicio select[name=idempleado]').select2();
+        $('#form_req_servicio select[name=idareaSolicitante] option:not(:selected)').prop("disabled", "disabled");
+        $('#form_req_servicio select[name=idareaSolicitante]').select2();
+      }
+    });
+  });
+  $(document.body).off('change', '#form_req_servicio select[name=idcliente]');
+  $(document.body).on('change', '#form_req_servicio select[name=idcliente]', function(ev) {
+    $.ajax({
+      url: servidor + 'gco/RelacionReqServicios/getCliente',
+      data: {
+        CardCode: $(this).val()
+      },
+      type: "post",
+      async: false,
+      dataType: "json",
+      success: function(data) {
+        for (x in data.cliente) {
+          if (data.cliente[x] != null) {
+            $('#form_req_servicio input[name=' + x + ']').val(data.cliente[x]).prop('readonly', 'true');
+          } else {
+            $('#form_req_servicio input[name=' + x + ']').val('').removeAttr('readonly');
+          }
+        }
+      }
+    });
+  });
+  $(document.body).off('change', '#form_req_servicio select[name=idservicio]');
+  $(document.body).on('change', '#form_req_servicio select[name=idservicio]', function(ev) {
+    var idservicio = $(this).val();
+    $('#form_req_servicio input:hidden[name=vNombreServicio]').val($(this).find('option:selected').text());
+    //principio activo
+    if (idservicio == 1) {
+      $('#inputprincipioactivo').html(`<input type="text" class="form-control input-sm" name="vNombreGranel">`);
+    } else {
+      $('#inputprincipioactivo').html(
+        `
+      <select class="form-control input-sm principioactivo" name="vCodGI" style="width:100%"><option value=""></option>
+      </select>
+      <input type="hidden" class="form-control input-sm" name="vNombreGranel">`);
+      $.ajax({
+        url: servidor + 'gco/RelacionReqServicios/getPrincipioActivo',
+        dataType: "json",
+        async: false,
+        success: function(data) {
+          $('select.principioactivo').select2({
+            data: data,
+            placeholder: 'Seleccionar'
+          });
+        }
+      });
+    }
+    //submenus y secciones
+    if (idservicio == 4) {
+      $('#subdetalle').html(
+        `<div class="col-md-6">
+          <div class="mt-checkbox-list">
+            <label class="mt-checkbox mt-checkbox-outline">Estabilidad
+              <input type="checkbox" value="1" name="vDetalleServicio[1]" class="subservicio" checked="">
+              <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline">Tecnica Analitica
+              <input type="checkbox" value="1" name="vDetalleServicio[2]" class="subservicio" checked="">
+              <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline">Fórmula(Fabricacion/Acondicionamiento)
+              <input type="checkbox" value="1" name="vDetalleServicio[3]" class="subservicio" checked="">
+              <span></span>
+            </label>
+          </div>
+        </div>`
+      );
+      $('div.datos-finanzas').hide();
+    } else if (idservicio == 5) {
+      $('div.datos-finanzas').show();
+      $('#subdetalle').html(`
+          <label class="col-md-2 control-label">Nombre Servicio:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" name="nombreServicio">
+          </div>`);
+    } else {
+      $('div.datos-finanzas').show();
+      $('#subdetalle').html('');
+    }
+  });
+  $(document.body).off('change', '#form_req_servicio select.principioactivo');
+  $(document.body).on('change', '#form_req_servicio select.principioactivo', function(ev) {
+    $('#form_req_servicio input[name=vCodGI]').val($(this).val());
+    $('#form_req_servicio input[name=vNombreGranel]').val($(this).find('option:selected').text());
+  });
+  $('#form_req_servicio').validate({
+    rules: {
+      dSolicitud: {
+        required: true,
+        dateISO: true
+      },
+      idcliente: {
+        required: true
+      },
+      vContacto: {
+        maxlength: 50,
+      },
+      vTelefono: {
+        maxlength: 15,
+      },
+      vEmail: {
+        email: true,
+        maxlength: 200
+      },
+      idservicio: {
+        required: true
+      },
+      vNombreProducto: {
+        required: true,
+        maxlength: 100
+      },
+      vNombreGranel: {
+        required: true,
+        maxlength: 50
+      },
+      vPresentacion: {
+        required: true,
+        maxlength: 50
+      },
+      idformaFarmaceutica: {
+        required: true
+      },
+      idmaterialEmpaque: {
+        required: true
+      },
+      iLoteTentativo: {
+        required: true,
+        digits: true
+      },
+      idunidadMedida: {
+        required: true
+      },
+      iPrecioTentativo: {
+        required: true,
+        number: true
+      },
+      "vProVentaAnual[1]": {
+        required: true,
+        number: true
+
+      },
+      "vProVentaAnual[2]": {
+        required: true,
+        number: true
+
+      },
+      "vProVentaAnual[3]": {
+        required: true,
+        number: true
+
+      },
+      "vProVentaAnual[4]": {
+        required: true,
+        number: true
+
+      },
+      "vProVentaAnual[5]": {
+        required: true,
+        number: true
+      },
+      nPrecioComercial: {
+        required: true,
+        number: true
+      }
+    },
+    submitHandler: function(form, e) {
+      e.preventDefault();
+      var formData = new FormData(form);
+      formData.append('idusuario', sessionStorage.idusuario);
+      formData.append('idformulario', sessionStorage.menuactual);
+      $.ajax({
+        url: servidor + 'gco/RelacionReqServicios/guardar',
+        type: 'post',
+        data: formData,
+        cache: true,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+
+        }
+
+      });
+
+    },
+    invalidHandler: function(event, validator) {
+      //event.preventDefault();
+      //alertify.error('Por favor!,Verifique los datos ingresados');
+    }
+  });
+  $(document.body).off('dblclick', '#tbl_requerimientos tbody tr');
+  $(document.body).on('dblclick', '#tbl_requerimientos tbody tr', function(ev) {
+    var idregistro = $(this).find('td').eq(0).html();
+    $.ajax({
+      url: servidor + 'gco/RelacionReqServicios/onClickVisualizar',
+      data: {
+        idregistro: idregistro,
+      },
+      type: "post",
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+        console.log(data);
+        for (x in data) {
+          $('#form_req_servicio select[name=' + x + ']').val(data[x]).trigger('change').prop('disabled', 'true');
+          $('#form_req_servicio input[name=' + x + ']').val(data[x]).prop('readonly', true);
+          $('#form_req_servicio textarea[name=' + x + ']').val(data[x]).prop('readonly', true);
+          if (x == 'vProVentaAnual' && data.idservicio != 4) {
+            data.vProVentaAnual = JSON.parse(data.vProVentaAnual);
+            let inputsproyeccion = $('#form_req_servicio input.vproyeccion');
+            $.each(inputsproyeccion, function(i, item) {
+              inputsproyeccion.eq(i).val(data.vProVentaAnual[i + 1]);
+            });
+          }
+          if (data.idservicio == 4) {
+            data.vDetalleServicio = JSON.parse(data.vDetalleServicio);
+            let checkboxsubservicio = $('#form_req_servicio input.subservicio');
+            checkboxsubservicio.removeAttr('checked');
+            $.each(checkboxsubservicio, function(i, item) {
+              if (data.vDetalleServicio[i + 1]) {
+                checkboxsubservicio.eq(i).prop('checked');
+              }
+            });
+          }
+        }
+        $('#form_req_servicio input').prop('readonly', true);
+        $('#modalReqServicio').modal('show');
+      }
+    });
+  });
 </script>

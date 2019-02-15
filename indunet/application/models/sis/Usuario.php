@@ -182,6 +182,11 @@ class Usuario extends CI_Model implements JsonSerializable{
 
       $this->db->query("DELETE from SIS_accesos where idusuario=".$this->idusuario."");
     }
+    public function getUsuariosSelect2(){
+      $this->db->select('idusuario id,vAlias text')->from('SIS_usuario');
+      $query=$this->db->get();
+      return $query->result();
+    }
 
 
 

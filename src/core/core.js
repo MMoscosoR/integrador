@@ -89,6 +89,7 @@ $(document.body).on('click', '.menu-principal', function (e) {
               </a>
             </li> `);
           }
+
           if(item.iTipo==2){
             $('nav.quick-nav').show();
             $('#ulEspeciales').append(`<li>
@@ -99,6 +100,18 @@ $(document.body).on('click', '.menu-principal', function (e) {
                 </li>`);
           }
         });
+
+        
+        if(sessionStorage.menuactual==24){
+          $('#divacciones').append(`
+          <li class="dropdown dropdown-extended dropdown-notification">
+            <a href="javascript:;" class="dropdown-toggle btn-principales" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
+              id="main_btn_visualizar" title="Visualizar">
+              <i class="icon-magnifier"></i><span class="hidden-xs"> Visualizar</span>
+              <span class="badge badge-default"></span>
+            </a>
+          </li> `);
+        }
 
         //dinamico o no
         if(data.menu.iDinamico==0){

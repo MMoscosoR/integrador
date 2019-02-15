@@ -1,0 +1,1267 @@
+<!--nav class="quick-nav bolajm">
+    <a class="quick-nav-trigger" href="#0">
+        <span aria-hidden="true"></span>
+    </a>
+    <ul>
+        <li class="visualizar_52_10jm">
+            <a href="javascript:void(0)" id="navjm">
+                <span>Guardar avances</span>
+                <i class="fa fa-save"></i>
+            </a>
+        </li>
+        <li class="visualizar_52_11">
+            <a href="javascript:void(0)" id="generarreporte" >
+                <span>Generar resumen</span>
+                <i class="fa fa-sticky-note"></i>
+            </a>
+        </li>
+    </ul>
+    <span aria-hidden="true" class="quick-nav-bg"></span>
+</nav>
+<div class="quick-nav-overlay"></div-->
+<div class="page-head">
+    <!-- BEGIN PAGE TITLE -->
+    <div class="page-title">
+        <h1>GAF
+            <small>Reporte Costos </small>
+        </h1>
+    </div>
+    <!-- END PAGE TITLE -->
+
+</div>
+<!-- END PAGE HEAD-->
+
+<!-- BEGIN PAGE BASE CONTENT -->
+<div class="row">
+
+    <style>
+        .lbljm{
+            padding-top:10px;
+        }
+        .btnsjm{
+            padding-top:20px;
+            padding-bottom:20px;
+        }
+        /*#calcularjm{
+            width:22%;
+            margin-left: 39%;
+            font-size: 20px;
+        }*/
+        #hot-display-license-info{
+            display:none;
+        }
+        /*#table_otros1,#table_agua,#table_otros2,#table_otros3,#table_otros4,#table_otros5{
+            float:left;
+            width: 50%;
+        }*/
+        /*.select2-results { background-color: #00f; }*/
+        body,html{
+            height:100%; 
+        }
+        .tab-pane{
+            padding-left: 3%;
+        }
+        /*#tab_moi_1,#tab_moi_2,#tab_moi_3,#tab_moi_4,#tab_moi_5{
+            float:left;
+            width:50%;
+        }*/
+
+        @media screen and (max-width: 1300px) {
+            /*#tab_moi_1,#tab_moi_2,#tab_moi_3,#tab_moi_4,#tab_moi_5{
+                width:100%;
+            }*/
+            #calcularjm{
+                font-size: 14px;
+                width:150px;
+            }
+            .list-datetime{
+                padding-right: 10px;
+                padding-top:5px;
+            }
+            .mt-list-item{
+                height:80px;
+            }
+            /*#table_fabricacion{
+                overflow:scroll;
+            }*/
+        }
+        /*#containerjm{
+            position:fixed; 
+            left:0px;
+            right:0px;
+            bottom:0px;
+            height:50px;
+            z-index:0;
+        }*/
+
+    </style>
+    
+    <div class="col-md-12">
+        
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-dark">
+                        <i class="icon-settings font-dark"></i>
+                        <span class="caption-subject bold uppercase">Costos  </span>
+                        
+                    </div>
+                    <div class="tools">
+                        <div class="actions accionjm">
+                                
+                                <!--button type="button" id="calcularjm" class="btn btn-success"><i class="fa fa-bar-chart"></i> Generar reporte</button-->
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="portlet-body"  style="padding-top:40px;padding-bottom:40px;">
+                    
+                    <form class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Principio activo    :</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" id="lisPrincipios" style="width:100%;">
+                                        <option value="jm">Seleccione granel...</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 infonueva">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Forma farmacéutica    :</label>
+                                <div class="col-md-3">
+                                    <input type="text" id="name_forma" class="form-control" disabled="disabled" value="tabletas">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Lote min. diferencia    :</label>
+                                <div class="col-md-3">
+                                    <input type="text" id="lot_min_diferencia" class="form-control" disabled="disabled" value="100000">
+                                </div>
+                                
+                            </div>
+                            
+                            <!--div class="form-group btnsjm">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-success" style="width:100%;" type="button" id="btnVer">Visualizar</button>
+                                    </div>
+             
+                            </div-->
+                        </div>
+                    </form>
+                </div><hr>
+
+                <div class="cabecera_data" style="display:none;width:100%;">
+                    <form class="form-horizontal" action="#" id="form_costos">
+                        
+                        
+                            <div class="containerjm">
+                                <div class="portlet box ">
+                                    <div class="portlet-title">
+                                        <div class="tools">
+                                            <a href="javascript:;" class="collapse"> </a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body" style="padding-top:10px !important;">
+                                            <div class="form-group">
+                                                    <label class="col-md-4 control-label">Lote(cant Tab/Cap/mL./gr.) :</label>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="num_lote"  class="form-control input-sm" value="500">
+                                                        <input type="hidden" id="idgranel" name="cabecera[idGranel]">
+                                                        <input type="hidden" id="estadogi" name="cabecera[iEstado]" value="1">
+                                                    </div>
+                                                    <div class="col-md-1 lbljm">
+                                                        <label class="lbl_forma">Tab.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Presentación (Tab/Cap/mL./gr.) :</label>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="num_pres"  class="form-control input-sm" value="100">
+                                                    </div>
+                                                    <div class="col-md-1 lbljm">
+                                                        <label class="lbl_forma">Tab.</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Presentación compuesta por    :</label>
+                                                    <div class="col-md-3">
+                                                        <input type="number" class="form-control input-sm">
+                                                    </div>
+                                                    <div class="col-md-1 lbljm">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        
+                                                    </div>                           
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Cant. productos en este Lote    :</label>
+                                                    <div class="col-md-3">
+                                                        <input type="number" id="num_cant"   class="form-control input-sm" value="5">
+                                                        <input type="hidden" id="num_cant_cabecera">
+                                                    </div>
+                                                    <div class="col-md-1 lbljm">
+                                                    </div>
+                                                    
+                                                </div>
+                                                <!--div class="form-group containerjm"  id="containerjm" style="margin-top:50px;">
+                                                    <button class="btn btn-success" title="Reporte" id="calcularjm" style="height: 50px;" type="button"><i class="icon-settings"></i> Generar reporte</button>
+                                                </div-->
+                                                <hr>
+                                                <div class="novisible">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Clonar indicadores    :</label>
+                                                        <div class="col-md-3">
+                                                            <select class="form-control" id="lisclones" style="width:100%;">
+                                                                <option value="jm">Ninguno</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label"><strong>Título para versión    :</strong></label>
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="cabecera[vTitulo]" placeholder="Opcional..." id="titulo_version"   class="form-control input-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Comentario  :</label>
+                                                        <div class="col-md-3">
+                                                            <textarea id="comentario_cabe" name="cabecera[vComentario]" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Estado de versión  :</label>
+                                                        <div class="col-md-3 statejm">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                    <ul class="nav nav-tabs novisible" id="myTabs" role="tablist">
+                                        <li role="presentation" class="active presjm">
+                                            <a href="#jmjm" id="jmjm-tab" role="tab" data-toggle="tab" aria-controls="jmjmtab" aria-expanded="true">JM</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#mod" id="mod-tab" role="tab" data-toggle="tab" aria-controls="mod" aria-expanded="true">M.O.D</a>
+                                        </li>
+                                        <li role="presentation" class="">
+                                            <a href="#moi" role="tab" id="moi-tab" data-toggle="tab" aria-controls="moi" aria-expanded="false">M.O.I</a>
+                                        </li>
+                                        
+                                        <li role="presentation" class="">
+                                            <a href="#otros" role="tab" id="otros-tab" data-toggle="tab" aria-controls="otros" aria-expanded="false">Otros</a>
+                                        </li>
+                                        <li role="presentation" class="">
+                                                <a href="#materias" role="tab" id="materias-tab" data-toggle="tab" aria-controls="otros" aria-expanded="false">Materias</a>
+                                            </li>
+                                    </ul>
+                                        <div class="tab-content">
+                                                <div class="tab-pane fade active in" role="tabpanel" id="jmjmtab" aria-labelledby="jmjm-tab">
+
+                                                </div>
+                                                <div class="tab-pane fade" role="tabpanel" id="mod" aria-labelledby="mod-tab">
+                                                    <div style="padding-top:10px;"></div>
+                                                    <h2>Ruta estándar de fabricación</h2>
+                                                    <div class="michjm">
+                                                    <button type="button" id="procesarmod" class="btn btn-success visualizar_52_1" >Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                    <div style="padding-top:20px;padding-bottom:20px;"></div>
+                                                        <div class="col-md-12">
+                                                            <div id="table_fabricacion"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="datafabrica"></textarea>
+                                                        <textarea id="datafabrica_para_proceso"></textarea>
+                                                    </div>
+
+                                                    <hr>
+                                                    <br><br><br>
+                                                    <div style="padding-top:80px;"></div>
+                                                    <h2>Ruta estándar de acondionado</h2>
+                                                    <!--div style="padding-top:50px;"></div-->
+                                                    <button type="button" id="procesarmod_acon" class="btn btn-success visualizar_52_2">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                    <div style="padding-top:20px;padding-bottom:20px;"></div>
+                                                    <div class="col-md-12">
+                                                        <div  id="table_acondicionado"></div>
+                                                    </div> 
+                                                    <div style="display:none;">
+                                                        <textarea id="dataacondicionado"></textarea>
+                                                        <textarea id="dataacondicionado_para_proceso"></textarea>
+                                                    </div> 
+                                                    
+                                                </div>
+
+                                                <div class="tab-pane fade" role="tabpanel" id="moi" aria-labelledby="moi-tab">
+                                                    <div style="padding-top:30px;"></div>
+                                                    <div class="col-md-12">
+                                                        <button type="button" id="procesarmoi" class="btn btn-success visualizar_52_3">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                    </div>
+                                                    <div style="padding-top:30px;"></div>
+                                                    <div class="col-md-12" style="padding-top:20px;">
+                                                        <div id="table_moi"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="datamoi"></textarea>
+                                                        <input type="hidden" id="valid_moi" value="0">
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" role="tabpanel" id="otros" aria-labelledby="otros-tab">
+                                                    <div style="padding-top:30px;"></div>
+                                                    <input type="hidden" id="periodogi" value="jm">
+                                                    <input type="hidden" id="versiongi" value="0">
+                                                    
+                                                    <input type="hidden" id="reportegi" value="jm">
+                                                    <input type="hidden" id="tipogi" value="jm">
+                                                    <div class="col-md-6" style="padding-bottom:20px;padding-top:10px;">
+                                                        <div  id="table_otros1"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_otros1"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6" style="padding-bottom:20px;padding-top:10px;">
+                                                        <div  id="table_agua"></div>
+                                                    </div>
+                                                    <hr>
+                                                    <div style="clear: both;"></div>
+                                                    <hr>
+                                                    <div class="col-md-6" style="padding-bottom:20px;padding-top:10px;">
+                                                        <div style="padding-bottom:10px;">
+                                                            <button type="button" id="ver_otros_2" class="btn btn-success visualizar_52_4">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div id="table_otros2"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_otros2"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6"  style="padding-bottom:20px;padding-top:10px;">
+                                                        <div style="padding-bottom:10px;">
+                                                            <button type="button" id="ver_otros_5" class="btn btn-success visualizar_52_5">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div  id="table_otros5"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_otros5"></textarea>
+                                                    </div>
+                                                    <hr>
+                                                    <div style="clear: both;"></div>
+                                                    <hr>
+                                                    
+                                                    
+                                                    <div class="col-md-6" style="padding-bottom:20px;padding-top:10px;">
+                                                        <div style="padding-bottom:10px;">
+                                                            <button type="button" id="ver_otros_3" class="btn btn-success visualizar_52_6">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div  id="table_otros3"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_otros3"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6" style="padding-bottom:20px;padding-top:10px;">
+                                                        <div style="padding-bottom:10px;">
+                                                            <button type="button" id="ver_otros_4" class="btn btn-success visualizar_52_7">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div  id="table_otros4"></div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                            <textarea id="data_proceso_otros4"></textarea>
+                                                        </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+
+                                                <div class="tab-pane fade" role="tabpanel" id="materias" aria-labelledby="materias-tab">
+                                                    <h2>Materia prima</h2>  
+                                                    <div class="row">  
+                                                        <div class="col-md-12" style="padding-top:20px;padding-bottom:10px;">
+                                                            <button type="button" id="procesarmateriaprima" class="btn btn-success visualizar_52_8">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div id="table_materias1"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="datamateriaprima"></textarea>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_materiaprima"></textarea>
+                                                    </div>
+                                                    <hr>
+                                                    <h2>Material empaque</h2> 
+                                                    <div class="row">
+                                                        <div style="padding-top:20px;padding-bottom:10px;" class="col-md-12">
+                                                            <button type="button" id="procesarmateriaempaque" class="btn btn-success visualizar_52_9">Visualizar <i class="glyphicon glyphicon-zoom-in"></i></button>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div id="table_materias2"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="datamateriaempaque"></textarea>
+                                                    </div>
+                                                    <div style="display:none;">
+                                                        <textarea id="data_proceso_materiaempaque"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <br></br><br><br><br><br>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </form>
+                    <!--div class="containerjm" id="containerjm" style="margin-top:150px;">
+                        <button type="button" class="btn btn-success btn-lg" id="calcularjm">Generar reporte</button>
+                    </div-->
+                </div>
+                
+                <div class="visualizar" style="display:none;">
+                        <div class="portlet-body">
+                                <div class="mt-element-list">
+                                    <div class="mt-list-head list-simple ext-1 font-white bg-green-sharp">
+                                        <div class="list-head-title-container">
+                                            <div class="list-date">Nov 8, 2015</div>
+                                            <h3 class="list-title">Simple List</h3>
+                                        </div>
+                                    </div>
+                                    <div class="mt-list-container list-simple ext-1">
+                                        <ul class="lista-jm">
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                </div>
+
+            </div>                       
+            
+    </div>
+
+    <div class="modal fade" id="modal_calculos_mod_acon" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-full">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">MOD</h4>
+                    </div>
+                    <div class="modal-body"> 
+                        <div style="padding-top:25px;"></div>
+                        <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                        <div style="padding-top:25px;"></div>
+                        <div id="table_fabricacion_proc">
+                            <div class="portlet box green">
+                                    
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-cogs"></i>Ruta estandar de acondicionado </div>
+                                        
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="table-scrollable">
+                                            <table class="table table-striped table-bordered table-hover" style="text-align:center;">
+                                                <thead>
+                                                        <tr>
+                                                                <th rowspan="2">Operación/Proceso</th>
+                                                                <th rowspan="2">Máquina</th>
+                                                                <th>Setup</th>
+                                                                <th colspan="2">Proceso</th>
+                                                                <th>Limpieza</th>
+                                                                <th>Limpieza área</th>
+                                                                <th rowspan="2">#Operadores</th>
+                                                                <th colspan="3">Subtotal</th>
+                                                                <th rowspan="2">Observaciones</th>
+                                                                <th colspan="13"></th>
+                                                                <th rowspan="2">TOTAL</th>
+                                                                <th rowspan="2">UNITARIO</th>
+                                                            </tr>                        
+                                                            <tr>
+                                                                <th>HH</th>
+                                                                <th>HH</th>
+                                                                <th>HM</th>
+                                                                <th>HH</th>
+                                                                <th>HH</th>
+                                                                <th>HH</th>
+                                                                <th>HM</th>
+                                                                <th>HP</th>
+                                                                <th>Básico</th>
+                                                                <th>Asig.Familiar</th>
+                                                                <th>Movilidad</th>
+                                                                <th>Asig.Educ.</th>
+                                                                <th>Refrig.</th>
+                                                                <th>Estac.Alim.</th>
+                                                                <th>CTS</th>
+                                                                <th>Vacac.</th>
+                                                                <th>Gratif.</th>
+                                                                <th>Bonif.extra</th>
+                                                                <th>ESSALUD</th>
+                                                                <th>Senati</th>
+                                                                <th>SCTR</th>
+                                                                
+                                                            </tr>
+                                                </thead>
+                                                <tbody class="body_fabricacion_proceso_acon">
+                                                    
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="trfoot_acon">
+                                                        <td colspan="25">TOTAL : </td> 
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    
+    <div class="modal fade" id="modal_calculos_mod" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-full">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">MOD</h4>
+                </div>
+                <div class="modal-body"> 
+                    <div style="padding-top:25px;"></div>
+                    <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                    <div style="padding-top:25px;"></div>
+                    <div id="table_fabricacion_proc_acon">
+                            
+                        <div class="portlet box green">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Ruta estandar de fabricación </div>
+                                    
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;">
+                                            <thead>
+                                                    <tr>
+                                                            <th rowspan="2">Operación/Proceso</th>
+                                                            <th rowspan="2">Máquina</th>
+                                                            <th>Setup</th>
+                                                            <th colspan="2">Proceso</th>
+                                                            <th>Limpieza</th>
+                                                            <th>Limpieza área</th>
+                                                            <th rowspan="2">#Operadores</th>
+                                                            <th colspan="3">Subtotal</th>
+                                                            <th rowspan="2">Observaciones</th>
+                                                            <th colspan="13"></th>
+                                                            <th rowspan="2">TOTAL</th>
+                                                            <th rowspan="2">UNITARIO</th>
+                                                        </tr>                        
+                                                        <tr>
+                                                            <th>HH</th>
+                                                            <th>HH</th>
+                                                            <th>HM</th>
+                                                            <th>HH</th>
+                                                            <th>HH</th>
+                                                            <th>HH</th>
+                                                            <th>HM</th>
+                                                            <th>HP</th>
+                                                            <th>Básico</th>
+                                                            <th>Asig.Familiar</th>
+                                                            <th>Movilidad</th>
+                                                            <th>Asig.Educ.</th>
+                                                            <th>Refrig.</th>
+                                                            <th>Estac.Alim.</th>
+                                                            <th>CTS</th>
+                                                            <th>Vacac.</th>
+                                                            <th>Gratif.</th>
+                                                            <th>Bonif.extra</th>
+                                                            <th>ESSALUD</th>
+                                                            <th>Senati</th>
+                                                            <th>SCTR</th>
+                                                            
+                                                        </tr>
+                                            </thead>
+                                            <tbody class="body_fabricacion_proceso">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="trfoot">
+                                                    <td colspan="25">TOTAL : </td> 
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal_calculos_moi" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-full">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">MOI</h4>
+                    </div>
+                    <div class="modal-body"> 
+                        <div style="padding-top:25px;"></div>
+                                
+                            <div class="portlet box green col-md-6" id="tab_moi_1">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Fabricación </div>
+                                    
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;width:95%;">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Monto</th>
+                                                    <th>Tiempo</th>
+                                                    <th># Personas</th>
+                                                    <th>Volumen</th>
+                                                    <th>Total</th>
+                                                    <th>Total Unid.</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body_moi_fabricacion">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="foot_moi_fabricacion">
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet box green col-md-6" id="tab_moi_2">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Acondicionado </div>
+                                    
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;width:95%;">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Monto</th>
+                                                    <th>Tiempo</th>
+                                                    <th># Personas</th>
+                                                    <th>Volumen</th>
+                                                    <th>Total</th>
+                                                    <th>Total Unid.</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body_moi_acondicionado">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="foot_moi_acondicionado">
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="portlet box green col-md-6" id="tab_moi_3">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Laboratorio P.P. 
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Monto</th>
+                                                    <th>Tiempo</th>
+                                                    <th># Personas</th>
+                                                    <th>Volumen</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body_moi_pp">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="foot_moi_pp">
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="portlet box green col-md-6" id="tab_moi_4">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-cogs"></i>Laboratorio P.T. </div>
+                                    
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Monto</th>
+                                                    <th>Tiempo</th>
+                                                    <th># Personas</th>
+                                                    <th>Volumen</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body_moi_pt">
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="foot_moi_pt">
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet box green col-md-12" id="tab_moi_5">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-cogs"></i>Laboratorio MP </div>
+                                
+                            </div>
+                            <div class="portlet-body">
+                                <div class="table-scrollable">
+                                    <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Monto</th>
+                                                <th>Tiempo</th>
+                                                <th># Personas</th>
+                                                <th>Volumen</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="body_moi_mp">
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="foot_moi_mp">
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+            
+        </div>
+        <div class="modal fade" id="modal_calculos_otros_2" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body"> 
+                            <div style="padding-top:25px;"></div>
+                            <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                            <div style="padding-top:25px;"></div>
+                            <div id="table_fabricacion_proc_acon">
+                                    
+                                <div class="portlet box green">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Área</th>
+                                                            <th>Cod.Máquina</th>
+                                                            <th>H.M</th>
+                                                            <th>Depreciación</th>
+                                                            <th>Costo</th>
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody class="body_otros_2_proceso">
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr class="foot_otros_2">
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade" id="modal_calculos_otros_3" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body"> 
+                            <div style="padding-top:25px;"></div>
+                            <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                            <div style="padding-top:25px;"></div>
+                            <div id="table_fabricacion_proc_acon">
+                                    
+                                <div class="portlet box green">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Área</th>
+                                                            <th>Máquina</th>
+                                                            <th>H.M</th>
+                                                            <th>Depreciación</th>
+                                                            <th>Costo</th>
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                    <tbody class="body_otros_3_proceso">
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr class="foot_otros_3">
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade" id="modal_calculos_otros_4" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body"> 
+                                <div style="padding-top:25px;"></div>
+                                <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                                <div style="padding-top:25px;"></div>
+                                <div id="table_fabricacion_proc_acon">
+                                        
+                                    <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="table-scrollable">
+                                                    <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Área</th>
+                                                                <th>Cod.Máquina</th>
+                                                                <th>H.M</th>
+                                                                <th>Depreciación</th>
+                                                                <th>Costo</th>
+                                                            </tr>
+                                                            
+                                                        </thead>
+                                                        <tbody class="body_otros_4_proceso">
+    
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr class="foot_otros_4">
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+                <div class="modal fade" id="modal_calculos_otros_5" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body"> 
+                                <div style="padding-top:25px;"></div>
+                                <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                                <div style="padding-top:25px;"></div>
+                                <div id="table_fabricacion_proc_acon">
+                                        
+                                    <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="table-scrollable">
+                                                    <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Cod.Máquina</th>
+                                                                <th>Tipo</th>
+                                                                <th>H.M</th>
+                                                                <th>Depreciación</th>
+                                                                <th>Volúmen</th>
+                                                                <th>Costo</th>
+                                                            </tr>
+                                                            
+                                                        </thead>
+                                                        <tbody class="body_otros_5_proceso">
+    
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr class="foot_otros_5">
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+                <div class="modal fade" id="modal_calculos_materiaprima" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body"> 
+                                    <div style="padding-top:25px;"></div>
+                                    <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                                    <div style="padding-top:25px;"></div>
+                                    <div id="table_fabricacion_proc_acon">
+                                            
+                                        <div class="portlet box green">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                            <i class="fa fa-cogs"></i>Materia prima
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div class="table-scrollable">
+                                                        <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Código</th>
+                                                                    <th>Material</th>
+                                                                    <th>Costo/Unid</th>
+                                                                    <th>Um</th>
+                                                                    <th>Para el cálculo</th>
+                                                                    <th>Resultado</th>
+                                                                </tr>
+                                                                
+                                                            </thead>
+                                                            <tbody class="body_materiaprima_proceso">
+        
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr class="trfoot_matprima">
+                                                                    <td colspan="5">TOTAL : </td> 
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+
+                    <div class="modal fade" id="modal_calculos_materiaempaque" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title"></h4>
+                                    </div>
+                                    <div class="modal-body"> 
+                                        <div style="padding-top:25px;"></div>
+                                        <!--button type="button" class="btn btn-success exportarjm">Exportar <i class="glyphicon glyphicon-download"></i></button-->
+                                        <div style="padding-top:25px;"></div>
+                                        <div id="table_fabricacion_proc_acon">
+                                                
+                                            <div class="portlet box green">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                                <i class="fa fa-cogs"></i>Material empaque
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div class="table-scrollable">
+                                                            <table class="table table-striped table-bordered table-hover" style="text-align:center;width:100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Código</th>
+                                                                        <th>Material</th>
+                                                                        <th>Costo/Unid</th>
+                                                                        <th>Um</th>
+                                                                        <th>Para el cálculo</th>
+                                                                        <th>Resultado</th>
+                                                                    </tr>
+                                                                    
+                                                                </thead>
+                                                                <tbody class="body_materiaempaque_proceso">
+            
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr class="trfoot_matempaque">
+                                                                        <td colspan="5">TOTAL : </td> 
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+                        <div class="modal fade" id="modal_reporte_final" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title"></h4>
+                                        </div>
+                                        <div class="modal-body" > 
+                                            <div class="portlet green-meadow box">
+                                                <div class="portlet-title">
+                                                    <div class="caption">
+                                                        <i class="fa fa-cogs"></i>Resumen de costos </div>
+                                                    <div class="actions">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body body_final_reporte">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!--button type="button" id="guardar_indicadores" class="btn btn-success">Guardar</button-->
+                                            <button type="button" class="btn btn-primary" id="cerrarindicador" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                        </div>
+
+                        <div class="modal fade" id="modal_versiones" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title"></h4>
+                                        </div>
+                                        <div class="modal-body" > 
+                                                <div class="portlet-body">
+                                                    <div class="mt-element-list">
+                                                        <div class="mt-list-head list-simple ext-1 font-white bg-green-sharp">
+                                                            <div class="list-head-title-container">
+                                                                <h3 class="list-title">Simple List</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-list-container list-simple ext-1">
+                                                            <ul class="lista-jm-jm">
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="aceptar_version" class="btn btn-success">aceptar</button>
+                                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                        </div>
+
+                        <div class="modal fade" id="modal_autorizaciones" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">Autorizaciones</h4>
+                                    </div>
+                                    <div class="modal-body" > 
+                                        <div class="portlet box green">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-gift"></i>Visualización de botones </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <!-- BEGIN FORM-->
+                                                <form action="#" class="form-horizontal" id="form-autorizaciones">
+                                                    <div class="form-body body_aut">
+                                                        
+                                                        
+                                                    </div>
+                                                </form>
+                                                <!-- END FORM-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="guardar_autos" class="btn btn-success">Guardar</button>
+                                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                    </div>
+
+                    <div class="modal fade" id="modal_graneles_no_creados" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Principios sin indicadores</h4>
+                                </div>
+                                <div class="modal-body" > 
+                                    <div class="portlet-body">
+                                        <div class="portlet-body">
+                                          <div class="table-table-responsive">
+                                            <div class="messages"></div>
+                                            <table class="table table-bordered" id="tbl_granelesnocreados" style="font-size:9pt">
+                                              <thead>
+                                
+                                              </thead>
+                                              <tbody>
+                                
+                                              </tbody>
+                                
+                                            </table>
+                                          </div>
+                                
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"  id="aceptargranel" class="btn btn-success">Seleccionar</button-->
+                                    <button type="button" class="btn btn-primary"  data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                </div>
+                </div>
+</div>
+
+<script src="src/pages/modulos/gaf/costos/principal.js"></script>
+<script src="src/pages/modulos/gaf/costos/proceso.js"></script>
+<script src="src/pages/modulos/gaf/costos/editar.js"></script>
+
+
+

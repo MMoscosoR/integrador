@@ -68,5 +68,10 @@ class Area extends CI_Model implements JsonSerializable{
     }
     return $areas;
   }
+  public function getAreaSelect2(){
+    $this->db->select('idarea id,vNombreArea text')->from('SIS_area');
+    $query=$this->db->get();
+    return $query->result();
+  }
 
 }
